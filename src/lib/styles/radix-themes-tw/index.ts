@@ -1,17 +1,18 @@
 import type { Config } from 'tailwindcss';
 const colorScale = 12;
-const radixColors = [
-	'tomato',
-	'red',
+const openPropsColors = [
+	/* 	'tomato',
 	'ruby',
 	'crimson',
 	'pink',
 	'plum',
 	'purple',
 	'violet',
-	'iris',
-	'indigo',
-	'blue',
+	'iris', */
+	'gray',
+	'red',
+	'indigo'
+	/* 	'blue',
 	'cyan',
 	'teal',
 	'jade',
@@ -25,77 +26,52 @@ const radixColors = [
 	'yellow',
 	'lime',
 	'mint',
-	'sky'
+	'sky' */
 ];
 
-const radixGrayColors = ['gray', 'mauve', 'slate', 'sage', 'olive', 'sand'];
-
-const getColor = (color: string, scale: number, alpha?: boolean) => {
+const getColor = (color: string, scale: number) => {
 	const colors = Array.from(Array(scale).keys()).reduce(
 		(acc, _, i) => {
-			acc[i + 1] = `var(--${color}-${alpha ? 'a' : ''}${i + 1})`;
+			acc[i + 1] = `hsl(var(--${color}-${i + 1}-hsl) / <alpha-value>)`;
 			return acc;
 		},
 		{} as Record<number | string, string>
 	) as Record<string | number, string>;
-	if (!alpha) {
-		colors[`9-contrast`] = `var(--${color}-9-contrast)`;
-		colors['surface'] = `var(--${color}-surface)`;
-	}
 
 	return colors;
 };
 
-const getGrayColor = (color: string, scale: number, alpha?: boolean) => {
-	const colors = Array.from(Array(scale).keys()).reduce(
-		(acc, _, i) => {
-			acc[i + 1] = `var(--${color}-${alpha ? 'a' : ''}${i + 1})`;
-			return acc;
-		},
-		{} as Record<number | string, string>
-	) as Record<string | number, string>;
-	if (!alpha) colors[`2-translucent`] = `var(--${color}-2-translucent)`;
-
-	return colors;
-};
-
-const getColors = (arr: string[], isGray?: boolean) => {
+const getColors = (arr: string[]) => {
 	const colors = arr.reduce(
 		(acc, color) => {
-			acc[color] = isGray
-				? getGrayColor(color, colorScale, false)
-				: getColor(color, colorScale, false);
+			acc[color] = getColor(color, colorScale);
 			return acc;
 		},
 		{} as Record<string, Record<number | string, string>>
 	);
-
-	const alphaColors = arr.reduce(
-		(acc, color) => {
-			acc[color + 'A'] = isGray
-				? getGrayColor(color, colorScale, true)
-				: getColor(color, colorScale, true);
-			return acc;
-		},
-		{} as Record<string, Record<number | string, string>>
-	);
-	return { ...colors, ...alphaColors };
+	return { ...colors };
 };
 
 export const radixThemePreset: Config = {
 	content: [],
 	theme: {
 		colors: {
-			accent: getColor('indigo', colorScale),
-			...getColors(radixGrayColors, true),
-			gray: getGrayColor('gray', colorScale),
-			...getColors(radixColors),
-			overlay: 'var(--color-overlay)',
+			/*	indigo: getColor('indigo', colorScale)
+			 			...getColors(radixGrayColors, true),
+			gray: getGrayColor('gray', colorScale),*/
+			...getColors(openPropsColors),
+			surface: {
+				1: 'hsl(var(--surface-1) / <alpha-value>)',
+				2: 'hsl(var(--surface-1) / <alpha-value>)',
+				3: 'hsl(var(--surface-1) / <alpha-value>)',
+				4: 'hsl(var(--surface-1) / <alpha-value>)'
+			}
+			/*	overlay: 'var(--color-overlay)',
 			'panel-solid': 'var(--color-panel-solid)',
 			'panel-translucent': 'var(--color-panel-translucent)',
 			surface: 'var(--color-surface)',
 			panel: 'var(--color-panel)',
-			transparent: 'transparent'
+			transparent: 'transparent' */
 		},
 		borderRadius: {
 			1: 'var(--radius-1)',
