@@ -1,28 +1,138 @@
-/* @import '@radix-ui/colors/gray.css';
-@import '@radix-ui/colors/gray-dark.css';
-@import '@radix-ui/colors/indigo.css';
-@import '@radix-ui/colors/indigo-dark.css';
-@import '@radix-ui/colors/grass.css';
-@import '@radix-ui/colors/grass-dark.css'; */
 @import 'https://unpkg.com/open-props/indigo-hsl.min.css';
-@import 'https://unpkg.com/open-props/red-hsl.min.css';
+@import 'https://unpkg.com/open-props/purple-hsl.min.css';
 @import 'https://unpkg.com/open-props/gray-hsl.min.css';
+@import 'https://unpkg.com/open-props/shadows.min.css';
+@import 'https://unpkg.com/open-props/borders.min.css';
+@import 'https://unpkg.com/open-props/fonts.min.css';
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 :root {
+	--brand: hsl(var(--indigo-2-hsl));
+	--link: var(--indigo-7-hsl);
+	--link-visited: var(--purple-7-hsl);
+	--text-1: var(--gray-9-hsl);
+	--text-2: var(--gray-7-hsl);
 	--surface-1: var(--gray-0-hsl);
-	--surface-2: var(--gray-1-hsl);
-	--surface-3: var(--gray-2-hsl);
-	--surface-4: var(--gray-3-hsl);
+	--surface-2: var(--gray-2-hsl);
+	--surface-3: var(--gray-3-hsl);
+	--surface-4: var(--gray-4-hsl);
 }
 .dark {
-	--surface-1: var(--gray-12-hsl);
-	--surface-2: var(--gray-11-hsl);
-	--surface-3: var(--gray-10-hsl);
-	--surface-4: var(--gray-9-hsl);
+	--link: var(--indigo-3-hsl);
+	--link-visited: var(--purple-3-hsl);
+	--text-1: var(--gray-1-hsl);
+	--text-2: var(--gray-4-hsl);
+	--surface-1: var(--gray-9-hsl);
+	--surface-2: var(--gray-8-hsl);
+	--surface-3: var(--gray-7-hsl);
+	--surface-4: var(--gray-6-hsl);
 }
+html {
+	@apply bg-surface-1 text-text-2 caret-[--link] accent-[--link];
+}
+html,
 body {
-	@apply bg-surface-1;
+	@apply h-screen overflow-hidden;
 }
+textarea {
+	padding-inline: 0.5rem;
+	padding-block: 0.25rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	line-height: var(--font-lineheight-1);
+	font-weight: var(--font-weight-9);
+	text-wrap: balance;
+	color: hsl(var(--text-1));
+}
+
+h1 {
+	font-size: var(--font-size-8);
+	max-inline-size: var(--size-header-1);
+}
+
+h2 {
+	font-size: var(--font-size-6);
+	max-inline-size: var(--size-header-2);
+}
+
+h3 {
+	font-size: var(--font-size-5);
+}
+h4 {
+	font-size: var(--font-size-4);
+}
+h5 {
+	font-size: var(--font-size-3);
+}
+
+h3,
+h4,
+h5,
+h6,
+dt {
+	max-inline-size: var(--size-header-3);
+}
+
+p,
+ul,
+ol,
+dl,
+h6 {
+	font-size: var(--font-size-2);
+}
+
+button:is([type='button'], [type='reset'], [type='submit']) {
+	@apply inline-block rounded-1 bg-primary-5 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-text-1 shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-6 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-6 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-7 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] disabled:opacity-70 dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)];
+}
+
+/*textarea,
+select,
+input:not([type='button'], [type='reset'], [type='submit']) {
+	@apply dark:focus:border-primary-5 focus:border-primary-6 block w-full appearance-none rounded-3 border-0 border-b-2 border-gray-3 bg-gray-5 px-2.5 pb-2.5 pt-5 text-sm text-gray-9 focus:outline-none focus:ring-0 dark:border-gray-6 dark:bg-gray-7;
+}*/
+[type='text'],
+[type='email'],
+[type='url'],
+[type='password'],
+[type='number'],
+[type='date'],
+[type='datetime-local'],
+[type='month'],
+[type='search'],
+[type='tel'],
+[type='time'],
+[type='week'],
+[multiple],
+textarea,
+select {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	background-color: theme(colors.surface.3);
+	border-color: theme(colors.surface.4);
+	border-width: 1px;
+	border-radius: 5px;
+	color: theme(colors.text.1);
+	padding-top: 0.5rem;
+	padding-right: 0.75rem;
+	padding-bottom: 0.5rem;
+	padding-left: 0.75rem;
+	font-size: theme(fontSize.sm);
+	line-height: 1.5rem;
+	--tw-shadow: 0 0 #0000;
+	@apply ring-1 focus:ring-2 focus:ring-inset focus:ring-primary-6;
+}
+/*textarea,
+select,
+input:not([type='button'], [type='submit'], [type='reset']) {
+	background-color: var(--surface-2);
+	color: var(--text-2);
+}*/

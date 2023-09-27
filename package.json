@@ -15,9 +15,9 @@
 		"@melt-ui/pp": "^0.1.2",
 		"@melt-ui/svelte": "^0.50.0",
 		"@sveltejs/adapter-auto": "^2.1.0",
-		"@sveltejs/kit": "^1.25.0",
-		"@typescript-eslint/eslint-plugin": "^6.7.2",
-		"@typescript-eslint/parser": "^6.7.2",
+		"@sveltejs/kit": "^1.25.1",
+		"@typescript-eslint/eslint-plugin": "^6.7.3",
+		"@typescript-eslint/parser": "^6.7.3",
 		"autoprefixer": "^10.4.16",
 		"eslint": "^8.50.0",
 		"eslint-config-prettier": "^9.0.0",
@@ -38,9 +38,10 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@radix-ui/colors": "3.0.0-rc.4",
 		"@supabase/auth-helpers-sveltekit": "^0.10.3",
 		"@supabase/supabase-js": "^2.36.0",
-		"lucide-svelte": "^0.279.0"
+		"clsx": "^2.0.0",
+		"lucide-svelte": "^0.279.0",
+		"tailwind-merge": "^1.14.0"
 	}
 }
