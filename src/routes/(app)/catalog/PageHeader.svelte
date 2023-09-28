@@ -6,6 +6,7 @@
 	import { fade } from 'svelte/transition';
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
+	import { Select } from '$lib/components/melt-ui';
 
 	const options: SelectOption<number>[] = [
 		{ value: 5, label: 'Retail T' },
@@ -20,6 +21,19 @@
 			goto(newUrl);
 		}
 		return next;
+	};
+	/* 	const onSelected = ({ next }:{next: SelectOption<number>}) => { */
+	const onSelected = (e: CustomEvent) => {
+		const next = e.detail.next;
+		console.log('e', e.detail.next);
+
+		const stringValue: string = (next?.value as number)?.toString();
+		if (next !== undefined) {
+			const newUrl = new URL($page.url);
+			newUrl?.searchParams?.set('wh', stringValue);
+			goto(newUrl);
+		}
+		return;
 	};
 	const {
 		elements: { trigger, menu, option, label },
@@ -42,8 +56,8 @@
 		<!-- svelte-ignore a11y-label-has-associated-control - $label contains the 'for' attribute -->
 		<label class="text-magnum-900 block" use:melt={$label}>Warehouse:</label>
 		<button
-			class="rounded-lg text-magnum-700 shadow flex h-10 min-w-[220px] items-center justify-between bg-surface-2
-				px-3 py-2 transition-opacity hover:opacity-90"
+			class="rounded-lg shadow flex h-10 min-w-[220px] items-center justify-between bg-surface-2 px-3
+				py-2 text-primary-7 transition-opacity hover:opacity-90"
 			use:melt={$trigger}
 			aria-label="Food"
 		>
@@ -76,6 +90,7 @@
 			</div>
 		{/if}
 	</div>
+	<Select {options} on:onSelectedChange={onSelected}></Select>
 </header>
 
 <style lang="postcss">

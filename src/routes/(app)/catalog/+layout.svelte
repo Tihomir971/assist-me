@@ -10,7 +10,7 @@
 	import { setContext } from 'svelte';
 	import { createTreeView } from '@melt-ui/svelte';
 	import { TreeView } from '$lib/components/melt-ui/index';
-	import Header from './Header.svelte';
+	import PageHeader from './PageHeader.svelte';
 	import CategoryToolbar from './CategoryToolbar.svelte';
 	const ctx = createTreeView({
 		defaultExpanded: ['lib-0', 'tree-0']
@@ -34,7 +34,7 @@
 	<!-- <CategoryTree bind:children></CategoryTree> -->
 	<!-- 	<DemoTreeView /> -->
 	<div class="grid w-full grid-rows-[auto_1fr]">
-		<div class="h-12 w-full bg-surface-4"><Header /></div>
+		<div class="h-12 w-full bg-surface-4"><PageHeader /></div>
 		<slot />
 	</div>
 </div>

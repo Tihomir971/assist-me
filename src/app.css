@@ -8,10 +8,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 :root {
 	--brand: hsl(var(--indigo-2-hsl));
-	--link: var(--indigo-7-hsl);
-	--link-visited: var(--purple-7-hsl);
+	--link: hsl(var(--indigo-7-hsl));
+	--link-visited: hsl(var(--purple-7-hsl));
 	--text-1: var(--gray-9-hsl);
 	--text-2: var(--gray-7-hsl);
 	--surface-1: var(--gray-0-hsl);
@@ -20,8 +21,8 @@
 	--surface-4: var(--gray-4-hsl);
 }
 .dark {
-	--link: var(--indigo-3-hsl);
-	--link-visited: var(--purple-3-hsl);
+	--link: hsl(var(--indigo-3-hsl));
+	--link-visited: hsl(var(--purple-3-hsl));
 	--text-1: var(--gray-1-hsl);
 	--text-2: var(--gray-4-hsl);
 	--surface-1: var(--gray-9-hsl);
@@ -89,9 +90,9 @@ h6 {
 	font-size: var(--font-size-2);
 }
 
-button:is([type='button'], [type='reset'], [type='submit']) {
+/* button:is([type='button'], [type='reset'], [type='submit']) {
 	@apply inline-block rounded-1 bg-primary-5 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-text-1 shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-6 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-6 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-7 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] disabled:opacity-70 dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)];
-}
+} */
 
 /*textarea,
 select,
@@ -136,3 +137,40 @@ input:not([type='button'], [type='submit'], [type='reset']) {
 	background-color: var(--surface-2);
 	color: var(--text-2);
 }*/
+
+a {
+	padding-inline: 0.25rem;
+	margin-inline: calc(0.25rem * -1);
+	padding-block: 0.25rem;
+	margin-block: calc(0.25rem * -1);
+
+	&_[href] {
+		text-decoration-color: hsl(var(--indigo-2-hsl));
+
+		&_:visited {
+			text-decoration-color: hsl(var(--purple-2-hsl));
+		}
+	}
+
+	&_not(:hover) {
+		text-decoration: inherit;
+	}
+}
+a[href] {
+	text-decoration-color: hsl(var(--indigo-2-hsl));
+	color: var(--brand, var(--link));
+}
+a[href]:visited {
+	color: var(--link-visited);
+	text-decoration-color: hsl(var(--purple-2-hsl));
+}
+a,
+u,
+ins,
+abbr {
+	text-underline-offset: 1px;
+
+	@supports (-moz-appearance: none) {
+		text-underline-offset: 2px;
+	}
+}

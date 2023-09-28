@@ -12,7 +12,7 @@
 	<div id="topAside">
 		<div
 			id="logo"
-			class="flex aspect-square w-full cursor-pointer items-center justify-center hover:bg-surface-2"
+			class="flex aspect-square w-full cursor-pointer items-center justify-center text-text-2 hover:bg-surface-2"
 		>
 			<img
 				class="h-8 w-8"
@@ -23,14 +23,14 @@
 		<div id="navAside">
 			<a
 				href="/dashboard"
-				class="flex aspect-square w-full cursor-pointer flex-col items-center justify-center space-y-1 text-xs hover:bg-surface-2"
+				class="flex aspect-square w-full cursor-pointer flex-col items-center justify-center space-y-1 text-xs !text-current hover:bg-surface-2"
 			>
 				<LayoutDashboard />
 				<span>Dashboard</span>
 			</a>
 			<a
 				href="/catalog"
-				class="flex aspect-square w-full cursor-pointer flex-col items-center justify-center space-y-1 text-xs hover:bg-surface-2"
+				class="flex aspect-square w-full cursor-pointer flex-col items-center justify-center space-y-1 text-xs !text-current hover:bg-surface-2"
 			>
 				<Tag />
 				<span>Catalog</span>

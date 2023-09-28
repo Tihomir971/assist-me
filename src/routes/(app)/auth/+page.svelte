@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { Input } from '$lib';
+	import Button from '$lib/components/Button/Button.svelte';
 	import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '$lib/components/card';
 	import CardDescription from '$lib/components/card/card-description.svelte';
 	import type { ActionData } from './$types';
@@ -16,8 +17,8 @@
 <div class="flex h-full items-center justify-center">
 	<Card class="w-[320px] shadow-6">
 		<CardHeader>
-			<CardTitle tag="h4">Log in to Assistant</CardTitle>
-			<CardDescription>This is example of base font. I ovo je onako</CardDescription>
+			<CardTitle tag="h4">Log in</CardTitle>
+			<CardDescription>Don't have account? Contact administrator.</CardDescription>
 		</CardHeader>
 		<CardContent>
 			<form action="?/signin" method="post" use:enhance>
@@ -32,7 +33,7 @@
 						</Alert.Root>
 					{/if} -->
 					<div class="sm:col-span-3">
-						<label for="email">Email</label>
+						<label for="email" class="text-sm font-medium">Email</label>
 						<div class="mt-2">
 							<input
 								id="email"
@@ -58,21 +59,9 @@
 							/>
 						</div>
 					</div>
-					<div class="sm:col-span-3">
-						<label for="first-name" class="block text-sm font-medium leading-6">First name</label>
-						<div class="mt-2">
-							<input
-								type="text"
-								name="first-name"
-								id="first-name"
-								autocomplete="given-name"
-								class="block w-full py-1.5 ring-inset ring-gray-3 placeholder:text-gray-4 sm:text-sm sm:leading-6"
-								placeholder="Enter first name"
-							/>
-						</div>
-					</div>
+
 					<div class="relative">
-						<button type="submit" disabled={false}>Log in</button>
+						<Button type="submit" disabled={false}>Log in</Button>
 					</div>
 				</div>
 			</form>
