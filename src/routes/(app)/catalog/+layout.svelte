@@ -34,7 +34,7 @@
 	<!-- <CategoryTree bind:children></CategoryTree> -->
 	<!-- 	<DemoTreeView /> -->
 	<div class="grid w-full grid-rows-[auto_1fr]">
-		<div class="h-12 w-full bg-surface-4"><PageHeader /></div>
+		<div class="m-1 h-12 w-full rounded-2 bg-surface-2"><PageHeader /></div>
 		<slot />
 	</div>
 </div>

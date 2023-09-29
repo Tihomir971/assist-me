@@ -7,9 +7,11 @@
 	import { createEventDispatcher } from 'svelte';
 	const dispatch = createEventDispatcher();
 	export let options: SelectOption<number>[];
+	export let name: string | undefined = undefined;
 	/* sweet: ['Caramel', 'Chocolate', 'Strawberry', 'Cookies & Cream'] */
 	/* savory: ['Basil', 'Bacon', 'Rosemary'] */
-
+	export let defaultSelected: SelectOption<number | string> | undefined = undefined;
+	export let flexRow = true;
 	const onSelectedChange: CreateSelectProps['onSelectedChange'] = ({ next }) => {
 		dispatch('onSelectedChange', { next });
 		return next;
@@ -19,6 +21,7 @@
 		states: { selectedLabel, open },
 		helpers: { isSelected }
 	} = createSelect({
+		defaultSelected,
 		forceVisible: true,
 		positioning: {
 			placement: 'bottom',
@@ -29,12 +32,12 @@
 	});
 </script>
 
-<div class="flex flex-col gap-1">
+<div class="flex items-center gap-2" class:flex-row={flexRow}>
 	<!-- svelte-ignore a11y-label-has-associated-control - $label contains the 'for' attribute -->
-	<label class="block text-primary-9" use:melt={$label}>Favorite Flavor</label>
+	<label class="block text-primary-9" use:melt={$label}>{name ?? ''}</label>
 	<button
-		class="rounded-lg shadow flex h-10 min-w-[220px] items-center justify-between bg-gray-1 px-3
-    py-2 text-primary-7 transition-opacity hover:opacity-90"
+		class="flex h-10 min-w-[220px] items-center justify-between rounded-2 bg-surface-3 px-3 py-2
+    text-text-1 shadow-2 transition-opacity hover:opacity-90"
 		use:melt={$trigger}
 		aria-label="Food"
 	>
