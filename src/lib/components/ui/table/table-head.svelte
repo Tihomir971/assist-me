@@ -8,12 +8,13 @@
 	export { className as class };
 </script>
 
-<th
+<th class={cn(className)} {...$$restProps}>
+	<!-- <th
 	class={cn(
-		'text-muted-foreground font-medium h-10 px-2 text-left align-middle [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]',
+		'sticky top-0 h-12 px-4 text-left align-middle font-medium text-text-2 [&:has([role=checkbox])]:pr-0',
 		className
 	)}
 	{...$$restProps}
->
+> -->
 	<slot />
 </th>

@@ -60,9 +60,7 @@
 						</div>
 					</div>
 
-					<div class="relative">
-						<Button type="submit" disabled={false}>Log in</Button>
-					</div>
+					<Button type="submit" disabled={false}>Log in</Button>
 				</div>
 			</form>
 		</CardContent>

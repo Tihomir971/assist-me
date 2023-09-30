@@ -4,7 +4,7 @@
 	import CheckboxHeader from './CheckboxHeader.svelte';
 	import CheckboxRow from './CheckboxRow.svelte';
 	import TextRight from './TextRight.svelte';
-
+	import { Checkbox } from '$lib/components/melt-ui';
 	//	import { Drawer } from '$lib/components/flowbite';
 	/* 	import { sineIn } from 'svelte/easing'; */
 	let hidden1 = true;
@@ -14,7 +14,7 @@
 		easing: sineIn
 	}; */
 
-	import { writable } from 'svelte/store';
+	import { writable, readable, type Writable } from 'svelte/store';
 	import type { PageData } from './$types';
 	export let data: PageData;
 	let { supabase } = data;
@@ -29,7 +29,7 @@
 	import {
 		addColumnFilters,
 		addHiddenColumns,
-		addPagination,
+		/* addPagination, */
 		addSelectedRows,
 		addSortBy,
 		addTableFilter
@@ -38,7 +38,7 @@
 	$: $products = data.products;
 	const table = createTable(products, {
 		sort: addSortBy({ disableMultiSort: true }),
-		page: addPagination({ initialPageSize: 17 }),
+		/* page: addPagination({ initialPageSize: 17 }), */
 		tableFilter: addTableFilter({
 			fn: ({ filterValue, value }) => value.toLowerCase().includes(filterValue.toLowerCase())
 		}),
@@ -50,17 +50,17 @@
 			accessor: 'id',
 			header: (_, { pluginStates }) => {
 				const { allPageRowsSelected, someRowsSelected } = pluginStates.select;
-				return createRender(CheckboxHeader, {
-					allPageRowsSelected,
-					someRowsSelected
+				return createRender(Checkbox, {
+					isSelected: allPageRowsSelected,
+					isSomeSubRowsSelected: someRowsSelected
 				});
 			},
 			cell: ({ row }, { pluginStates }) => {
 				const { getRowState } = pluginStates.select;
 				const { isSelected, isSomeSubRowsSelected } = getRowState(row);
-				return createRender(CheckboxRow, {
-					isSelected,
-					isSomeSubRowsSelected
+				return createRender(Checkbox, {
+					isSelected: isSelected,
+					isSomeSubRowsSelected: isSomeSubRowsSelected
 				});
 			},
 			plugins: {
@@ -192,13 +192,13 @@
 
 <!-- SkeletonLab .table-container -->
 <Table.Root {...$tableAttrs}>
-	<Table.Header class="bg-Base-7 text-Base-12">
+	<Table.Header>
 		{#each $headerRows as headerRow}
 			<Subscribe rowAttrs={headerRow.attrs()}>
 				<Table.Row>
 					{#each headerRow.cells as cell (cell.id)}
 						<Subscribe attrs={cell.attrs()} let:attrs props={cell.props()} let:props>
-							<Table.Head {...attrs} class="text-Base-12 [&:has([role=checkbox])]:pl-3">
+							<Table.Head {...attrs} class="[&:has([role=checkbox])]:pl-3">
 								<Render of={cell.render()} />
 							</Table.Head>
 						</Subscribe>
@@ -213,7 +213,7 @@
 				<Table.Row {...rowAttrs} data-state={$selectedDataIds[row.id] && 'selected'}>
 					{#each row.cells as cell (cell.id)}
 						<Subscribe attrs={cell.attrs()} let:attrs>
-							<Table.Cell class="border-Base-7 border-b [&:has([role=checkbox])]:pl-3" {...attrs}>
+							<Table.Cell class="[&:has([role=checkbox])]:pl-3" {...attrs}>
 								{#if cell.id === 'amount'}
 									<div class="text-right font-medium">
 										<Render of={cell.render()} />
@@ -229,7 +229,12 @@
 		{/each}
 	</Table.Body>
 </Table.Root>
-
+<div class="flex items-center justify-end space-x-4 py-4">
+	<div class="flex-1 text-sm">
+		{Object.keys($selectedDataIds).length} of{' '}
+		{$rows.length} row(s) selected.
+	</div>
+</div>
 <!-- <Drawer
 	placement="right"
 	transitionType="fly"

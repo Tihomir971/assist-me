@@ -11,6 +11,7 @@ const openPropsColors = [
 	'iris', */
 	'gray',
 	'red',
+	'yellow',
 	'indigo'
 	/* 	'blue',
 	'cyan',
@@ -23,7 +24,6 @@ const openPropsColors = [
 	'brown',
 	'orange',
 	'amber',
-	'yellow',
 	'lime',
 	'mint',
 	'sky' */
@@ -53,6 +53,7 @@ const getColors = (arr: string[]) => {
 };
 
 export const radixThemePreset: Config = {
+	darkMode: 'class',
 	content: [],
 	theme: {
 		colors: {
@@ -90,6 +91,11 @@ export const radixThemePreset: Config = {
 			4: 'var(--shadow-4)',
 			5: 'var(--shadow-5)',
 			6: 'var(--shadow-6)'
+		},
+		fontFamily: {
+			sans: 'var(--font-family-sans)',
+			serif: ['ui-serif', 'Georgia'],
+			mono: ['ui-monospace', 'SFMono-Regular']
 		},
 
 		extend: {}

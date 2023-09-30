@@ -8,12 +8,7 @@
 	export { className as class };
 </script>
 
-<td
-	class={cn(
-		'leading-none px-4 align-middle [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]',
-		className
-	)}
-	{...$$restProps}
->
+<td class={cn(className)} {...$$restProps}>
+	<!-- <td class={cn('px-4 align-middle [&:has([role=checkbox])]:pr-0', className)} {...$$restProps}> -->
 	<slot />
 </td>

@@ -10,12 +10,13 @@
 	export { className as class };
 </script>
 
-<tr
+<tr class={cn(className)} {...$$restProps}>
+	<!-- <tr
 	class={cn(
 		'hover:bg-muted/50 data-[state=selected]:bg-muted border-b transition-colors',
 		className
 	)}
 	{...$$restProps}
->
+> -->
 	<slot />
 </tr>

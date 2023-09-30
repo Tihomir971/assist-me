@@ -54,7 +54,7 @@
 	<li class={hasChildren ? 'pl-4' : 'pl-9'}>
 		<button
 			on:m-click={() => rerunLoadFunction(itemId)}
-			class="rounded-md !bg-transparent font-normal shadow-none focus:!bg-magnum-200 focus:!text-orange-600 active:!bg-magnum-200 active:!text-orange-600 flex min-h-[1.5rem] w-full flex-1 items-center p-0 text-left text-text-2"
+			class="rounded-md shadow-none focus:!text-orange-600 active:!text-orange-600 flex min-h-[1.5rem] w-full flex-1 items-center !bg-transparent p-0 text-left font-normal text-text-2 focus:!bg-primary-2 active:!bg-primary-2"
 			use:melt={$item({
 				id: itemId,
 				hasChildren

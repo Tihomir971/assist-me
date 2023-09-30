@@ -1,6 +1,9 @@
 <script lang="ts">
 	//	import type { PageData } from './$types';
 
+	import Button from '$lib/components/Button/Button.svelte';
+	import { Accessibility } from 'lucide-svelte';
+
 	//	export let data: PageData;
 </script>
 
@@ -29,4 +32,7 @@
 		<h1 class="text-yellow-800">Welcome to SvelteKit</h1>
 		<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
 	</div>
+
+	<Button type="submit" class="min-w-max"><Accessibility />Help</Button>
+	<Button type="submit" class="min-w-max"><Accessibility /></Button>
 </div>

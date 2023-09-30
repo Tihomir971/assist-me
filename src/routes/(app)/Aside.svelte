@@ -1,4 +1,5 @@
 <script lang="ts">
+	import ThemeToggle from '$lib/components/ThemeToggle/ThemeToggle.svelte';
 	import { createAvatar, melt } from '@melt-ui/svelte';
 	import { LayoutDashboard, Package, Tag } from 'lucide-svelte';
 	const {
@@ -38,6 +39,7 @@
 		</div>
 	</div>
 	<div id="bottomAside">
+		<ThemeToggle></ThemeToggle>
 		<div class="flex items-center justify-center hover:bg-surface-2">
 			<!-- Profile dropdown -->
 			<div class="flex aspect-square w-full cursor-pointer items-center justify-center">

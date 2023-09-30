@@ -4,12 +4,18 @@
 @import 'https://unpkg.com/open-props/shadows.min.css';
 @import 'https://unpkg.com/open-props/borders.min.css';
 @import 'https://unpkg.com/open-props/fonts.min.css';
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@font-face {
+	/* Reference name */
+	font-family: 'Inter';
+	/* For multiple files use commas, ex: url(), url(), ... */
+	src: url('/fonts/Inter-VariableFont_slnt,wght.ttf');
+}
 
 :root {
+	--font-family-sans: 'Inter', sans-serif;
 	--brand: hsl(var(--indigo-2-hsl));
 	--link: hsl(var(--indigo-7-hsl));
 	--link-visited: hsl(var(--purple-7-hsl));
@@ -139,11 +145,6 @@ input:not([type='button'], [type='submit'], [type='reset']) {
 }*/
 
 a {
-	padding-inline: 0.25rem;
-	margin-inline: calc(0.25rem * -1);
-	padding-block: 0.25rem;
-	margin-block: calc(0.25rem * -1);
-
 	&_[href] {
 		text-decoration-color: hsl(var(--indigo-2-hsl));
 
@@ -173,4 +174,42 @@ abbr {
 	@supports (-moz-appearance: none) {
 		text-underline-offset: 2px;
 	}
+}
+
+table {
+	@apply relative w-full table-auto overflow-hidden text-text-1;
+	/* background */
+	@apply bg-surface-2;
+	/* Theme: Rounded */
+	@apply rounded-2;
+}
+/* === Hover Styles ==== */
+
+table tbody tr {
+	@apply hover:bg-surface-4/20 even:hover:bg-surface-4/20;
+}
+/* === Table Head === */
+
+table thead {
+	@apply border-b border-surface-3 bg-surface-3;
+}
+
+table thead tr {
+	@apply text-left capitalize;
+}
+
+table thead th {
+	@apply sticky top-0 p-4 font-bold;
+}
+/* === Table Body === */
+
+table tbody tr {
+	@apply border-b border-surface-4/20 even:bg-surface-4/5;
+}
+
+table tbody td {
+	/* NOTE: removed this to allow wrapping */
+	@apply whitespace-nowrap px-3 py-4 align-middle lg:whitespace-normal;
+
+	@apply !py-3;
 }
