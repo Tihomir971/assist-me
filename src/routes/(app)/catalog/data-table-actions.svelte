@@ -7,6 +7,7 @@
 
 	import { X, AlignJustify } from 'lucide-svelte';
 	import type { Tables } from '$lib/types/database.types';
+	import Button from '$lib/components/Button/Button.svelte';
 
 	export let id: string;
 
@@ -75,42 +76,77 @@
 				<h3 use:melt={$title}>Edit product</h3>
 				<p use:melt={$description} class="mb-5 mt-2 leading-normal text-zinc-600">Edit product.</p>
 				<div class="flex flex-col space-y-2">
-					<section class="grid grid-cols-2 gap-2">
-						<div>
-							<label for="id">ID</label>
-							<input id="id" type="text" class="w-full" disabled bind:value={product.id} />
-						</div>
-						<div>
-							<label for="sku">SKU</label>
-							<input id="sku" type="text" class="w-full" bind:value={product.sku} />
-						</div>
-					</section>
-					<section>
-						<div>
-							<label for="name">Name</label>
-							<input id="name" type="text" class="w-full" bind:value={product.name} />
-						</div>
-						<div>
-							<label for="name">Name</label>
-							<input id="name" type="text" class="w-full" bind:value={product.name} />
-						</div>
-						<div>
-							<label for="name">Name</label>
-							<input id="name" type="text" class="w-full" bind:value={product.name} />
-						</div>
-						<div>
-							<label for="name">Name</label>
-							<input id="name" type="text" class="w-full" bind:value={product.name} />
-						</div>
-						<div>
-							<label for="name">Name</label>
-							<input id="name" type="text" class="w-full" bind:value={product.name} />
-						</div>
-						<div>
-							<label for="name">Name</label>
-							<input id="name" type="text" class="w-full" bind:value={product.name} />
-						</div>
-					</section>
+					<form method="POST" action="?/updateProduct">
+						<section class="grid grid-cols-2 gap-2">
+							<div>
+								<label for="id">ID</label>
+								<input
+									id="id"
+									name="id"
+									type="text"
+									class="w-full"
+									disabled
+									bind:value={product.id}
+								/>
+							</div>
+							<div>
+								<label for="sku">SKU</label>
+								<input id="sku" name="sku" type="text" class="w-full" bind:value={product.sku} />
+							</div>
+						</section>
+						<section>
+							<div>
+								<label for="name">Name</label>
+								<input id="name" name="name" type="text" class="w-full" bind:value={product.name} />
+							</div>
+							<div>
+								<label for="barcode">Name</label>
+								<input
+									id="barcode"
+									name="barcode"
+									type="text"
+									class="w-full"
+									bind:value={product.barcode}
+								/>
+							</div>
+							<div>
+								<label for="brand">Name</label>
+								<input
+									id="brand"
+									name="brand"
+									type="text"
+									class="w-full"
+									bind:value={product.brand}
+								/>
+							</div>
+							<div>
+								<label for="c_taxcategory_id">Name</label>
+								<input
+									id="c_taxcategory_id"
+									type="text"
+									class="w-full"
+									bind:value={product.c_taxcategory_id}
+								/>
+							</div>
+							<div>
+								<label for="name">Name</label>
+								<input id="name" type="text" class="w-full" bind:value={product.c_uom_id} />
+							</div>
+							<div>
+								<label for="name">Name</label>
+								<input id="name" type="text" class="w-full" bind:value={product.condition} />
+							</div>
+							<div>
+								<label for="name">Name</label>
+								<input id="name" type="text" class="w-full" bind:value={product.created} />
+							</div>
+							<div>
+								<label for="name">Name</label>
+								<input id="name" type="text" class="w-full" bind:value={product.updated} />
+							</div>
+						</section>
+						<Button type="submit">Save</Button>
+					</form>
 				</div>
 			</div>
 		{/if}
