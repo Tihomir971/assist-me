@@ -1,38 +1,33 @@
+/* Script by https://github.com/viktorbonino/radix-themes-tw */
 import type { Config } from 'tailwindcss';
-const colorScale = 12;
+import defaultTheme from 'tailwindcss/defaultTheme';
+
+const colorScale = 13;
 const openPropsColors = [
-	/* 	'tomato',
-	'ruby',
-	'crimson',
+	'gray',
+	'stone',
+	'red',
 	'pink',
-	'plum',
 	'purple',
 	'violet',
-	'iris', */
-	'gray',
-	'red',
-	'yellow',
-	'indigo'
-	/* 	'blue',
+	'indigo',
+	'blue',
 	'cyan',
 	'teal',
-	'jade',
 	'green',
-	'grass',
-	'bronze',
-	'gold',
-	'brown',
-	'orange',
-	'amber',
 	'lime',
-	'mint',
-	'sky' */
+	'yellow',
+	'orange',
+	'choco',
+	'brown',
+	'sand',
+	'camo',
+	'jungle'
 ];
-
 const getColor = (color: string, scale: number) => {
 	const colors = Array.from(Array(scale).keys()).reduce(
 		(acc, _, i) => {
-			acc[i + 1] = `hsl(var(--${color}-${i + 1}-hsl) / <alpha-value>)`;
+			acc[i + 1] = `hsl(var(--${color}-${i}-hsl) / <alpha-value>)`;
 			return acc;
 		},
 		{} as Record<number | string, string>
@@ -52,28 +47,37 @@ const getColors = (arr: string[]) => {
 	return { ...colors };
 };
 
-export const radixThemePreset: Config = {
+export const myPreset: Config = {
 	darkMode: 'class',
 	content: [],
 	theme: {
 		colors: {
-			transparent: 'transparent',
-			current: 'currentColor',
+			/* transparent: 'transparent', */
+			/* current: 'currentColor', */
 			/*	indigo: getColor('indigo', colorScale)
-			 			...getColors(radixGrayColors, true),
-			gray: getGrayColor('gray', colorScale),*/
+				 ...getColors(radixGrayColors, true),
+	gray: getGrayColor('gray', colorScale),*/
 			...getColors(openPropsColors),
-			surface: {
-				1: 'hsl(var(--surface-1) / <alpha-value>)',
-				2: 'hsl(var(--surface-2) / <alpha-value>)',
-				3: 'hsl(var(--surface-3) / <alpha-value>)',
-				4: 'hsl(var(--surface-4) / <alpha-value>)'
-			},
+
 			text: {
 				1: 'hsl(var(--text-1) / <alpha-value>)',
 				2: 'hsl(var(--text-2) / <alpha-value>)'
 			},
-			primary: getColor('indigo', colorScale)
+			primary: getColor('indigo', colorScale),
+			layer: {
+				Floating: 'var(--neutralLayerFloating) / <alpha-value>)',
+				Card: 'var(--cardLayer) / <alpha-value>)',
+				1: 'hsl(var(--layer-1-hsl) / <alpha-value>)',
+				2: 'hsl(var(--layer-2-hsl) / <alpha-value>)',
+				3: 'hsl(var(--layer-3-hsl) / <alpha-value>)',
+				4: 'hsl(var(--layer-4-hsl) / <alpha-value>)'
+			},
+			outlineNeutralRest: {
+				L1: 'var(--neutralOutlineRestL1)',
+				L2: 'var(--neutralOutlineRestL1)',
+				L3: 'var(--neutralOutlineRestL1)',
+				L4: 'var(--neutralOutlineRestL1)'
+			}
 		},
 		borderRadius: {
 			1: 'var(--radius-conditional-1)',
@@ -90,10 +94,11 @@ export const radixThemePreset: Config = {
 			3: 'var(--shadow-3)',
 			4: 'var(--shadow-4)',
 			5: 'var(--shadow-5)',
-			6: 'var(--shadow-6)'
+			6: 'var(--shadow-6)',
+			inner: 'var(--inner-shadow-0)'
 		},
 		fontFamily: {
-			sans: 'var(--font-family-sans)',
+			sans: ['GG Sans', 'Inter', ...defaultTheme.fontFamily.sans],
 			serif: ['ui-serif', 'Georgia'],
 			mono: ['ui-monospace', 'SFMono-Regular']
 		},

@@ -1,5 +1,6 @@
 import type { Config } from 'tailwindcss';
-import { radixThemePreset } from './src/lib/styles/radix-themes-tw';
+/* import colors from 'tailwindcss/colors'; */
+import { myPreset } from './src/lib/styles/myPreset';
 
 export default {
 	content: ['./src/**/*.{html,js,svelte,ts}'],
@@ -7,5 +8,5 @@ export default {
 		extend: {}
 	},
 	plugins: [],
-	presets: [radixThemePreset]
+	presets: [myPreset]
 } satisfies Config;

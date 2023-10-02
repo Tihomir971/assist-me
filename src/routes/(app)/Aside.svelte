@@ -9,11 +9,11 @@
 	});
 </script>
 
-<aside class="flex h-full w-16 flex-col justify-between bg-gray-12">
+<aside class="bg-gray-13 flex h-full w-16 flex-col justify-between">
 	<div id="topAside">
 		<div
 			id="logo"
-			class="flex aspect-square w-full cursor-pointer items-center justify-center text-text-2 hover:bg-surface-2"
+			class="hover:bg-layer-2 flex aspect-square w-full cursor-pointer items-center justify-center text-text-2"
 		>
 			<img
 				class="h-8 w-8"
@@ -24,14 +24,14 @@
 		<div id="navAside">
 			<a
 				href="/dashboard"
-				class="flex aspect-square w-full cursor-pointer flex-col items-center justify-center space-y-1 text-xs !text-current hover:bg-surface-2"
+				class="hover:bg-layer-2 flex aspect-square w-full cursor-pointer flex-col items-center justify-center space-y-1 text-xs !text-current"
 			>
 				<LayoutDashboard />
 				<span>Dashboard</span>
 			</a>
 			<a
 				href="/catalog"
-				class="flex aspect-square w-full cursor-pointer flex-col items-center justify-center space-y-1 text-xs !text-current hover:bg-surface-2"
+				class="hover:layer-2 flex aspect-square w-full cursor-pointer flex-col items-center justify-center space-y-1 text-xs !text-current"
 			>
 				<Tag />
 				<span>Catalog</span>
@@ -40,7 +40,7 @@
 	</div>
 	<div id="bottomAside">
 		<ThemeToggle></ThemeToggle>
-		<div class="flex items-center justify-center hover:bg-surface-2">
+		<div class="hover:bg-layer-2 flex items-center justify-center">
 			<!-- Profile dropdown -->
 			<div class="flex aspect-square w-full cursor-pointer items-center justify-center">
 				<img use:melt={$image} alt="Avatar" class="h-10 w-10 rounded-[inherit]" />

@@ -1,9 +1,10 @@
-@import 'https://unpkg.com/open-props/indigo-hsl.min.css';
-@import 'https://unpkg.com/open-props/purple-hsl.min.css';
-@import 'https://unpkg.com/open-props/gray-hsl.min.css';
-@import 'https://unpkg.com/open-props/shadows.min.css';
-@import 'https://unpkg.com/open-props/borders.min.css';
-@import 'https://unpkg.com/open-props/fonts.min.css';
+/* @import 'https://unpkg.com/open-props/colors-hsl.min.css'; */
+@import './lib/styles/props.shadows.css';
+@import './lib/styles/props.colors-hsl.css';
+@import './lib/styles/props.borders.css';
+@import './lib/styles/props.fonts.css';
+/* @import 'https://unpkg.com/open-props/borders.min.css'; */
+/* @import 'https://unpkg.com/open-props/fonts.min.css'; */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -13,31 +14,64 @@
 	/* For multiple files use commas, ex: url(), url(), ... */
 	src: url('/fonts/Inter-VariableFont_slnt,wght.ttf');
 }
+@font-face {
+	/* Reference name */
+	font-family: 'GG Sans';
+	/* For multiple files use commas, ex: url(), url(), ... */
+	src: url('/fonts/GG Sans/gg sans Regular.ttf');
+}
 
 :root {
-	--font-family-sans: 'Inter', sans-serif;
 	--brand: hsl(var(--indigo-2-hsl));
 	--link: hsl(var(--indigo-7-hsl));
 	--link-visited: hsl(var(--purple-7-hsl));
 	--text-1: var(--gray-9-hsl);
 	--text-2: var(--gray-7-hsl);
-	--surface-1: var(--gray-0-hsl);
-	--surface-2: var(--gray-2-hsl);
-	--surface-3: var(--gray-3-hsl);
-	--surface-4: var(--gray-4-hsl);
+	--layer-1-hsl: var(--gray-0-hsl);
+	--layer-2-hsl: var(--gray-2-hsl);
+	--layer-3-hsl: var(--gray-3-hsl);
+	--layer-4-hsl: var(--gray-3-hsl);
 }
 .dark {
 	--link: hsl(var(--indigo-3-hsl));
 	--link-visited: hsl(var(--purple-3-hsl));
 	--text-1: var(--gray-1-hsl);
 	--text-2: var(--gray-4-hsl);
-	--surface-1: var(--gray-9-hsl);
-	--surface-2: var(--gray-8-hsl);
-	--surface-3: var(--gray-7-hsl);
-	--surface-4: var(--gray-6-hsl);
+	--layer-1-hsl: var(--gray-9-hsl);
+	--layer-2-hsl: var(--gray-8-hsl);
+	--layer-3-hsl: var(--gray-7-hsl);
+	--layer-4-hsl: var(--gray-6-hsl);
+
+	/* Layer Card */
+	--cardLayer: #424242;
+	--cardFocus: #9a9a9a;
+	/* Layer Card Accent */
+	--cardAccentFillRest: #8456b6;
+	--cardAccentFillHover: #905ec6;
+	--cardAccentFillActive: #754ba2;
+	--cardAccentFillSelected: #a278cf;
+	--cardAccentForegroundCut: #ffffff;
+	--cardAccentFocusInner: #533475;
+	/* Layer Card Accent Neutral*/
+
+	--neutralOutlineRestL1: #7b7b7b;
+
+	/* Neutral */
+	--neutralForegroundRest: #f5f5f5;
+	--neutralForegroundHover: #f5f5f5;
+	--neutralForegroundActive: #f5f5f5;
+	/* Hint */
+
+	--neutralForegroundHint: #8d8d8d;
+	/* Accent */
+	--accentForegroundRest: #a278cf;
+	--accentForegroundHover: #b08cd6;
+	--accentForegroundActive: #996bcb;
+	--neutralFocus: #787878;
 }
+
 html {
-	@apply bg-surface-1 text-text-2 caret-[--link] accent-[--link];
+	@apply bg-layer-1 text-text-2 caret-[--link] accent-[--link];
 }
 html,
 body {
@@ -88,14 +122,6 @@ dt {
 	max-inline-size: var(--size-header-3);
 }
 
-p,
-ul,
-ol,
-dl,
-h6 {
-	font-size: var(--font-size-2);
-}
-
 /* button:is([type='button'], [type='reset'], [type='submit']) {
 	@apply inline-block rounded-1 bg-primary-5 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-text-1 shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-6 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-6 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-7 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] disabled:opacity-70 dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)];
 } */
@@ -123,8 +149,8 @@ select {
 	-webkit-appearance: none;
 	-moz-appearance: none;
 	appearance: none;
-	background-color: theme(colors.surface.3);
-	border-color: theme(colors.surface.4);
+	background-color: theme(colors.layer.3);
+	border-color: theme(colors.layer.4);
 	border-width: 1px;
 	border-radius: 5px;
 	color: theme(colors.text.1);
@@ -137,12 +163,6 @@ select {
 	--tw-shadow: 0 0 #0000;
 	@apply ring-1 focus:ring-2 focus:ring-inset focus:ring-primary-6;
 }
-/*textarea,
-select,
-input:not([type='button'], [type='submit'], [type='reset']) {
-	background-color: var(--surface-2);
-	color: var(--text-2);
-}*/
 
 a {
 	&_[href] {
@@ -176,40 +196,46 @@ abbr {
 	}
 }
 
-table {
-	@apply relative w-full table-auto overflow-hidden text-text-1;
-	/* background */
-	@apply bg-surface-2;
-	/* Theme: Rounded */
+/* table {
+	@apply relative w-full table-auto overflow-auto text-text-1;
 	@apply rounded-2;
-}
-/* === Hover Styles ==== */
+} */
+/* table tbody {
+	@apply overflow-auto;
+} */
 
 table tbody tr {
-	@apply hover:bg-surface-4/20 even:hover:bg-surface-4/20;
+	@apply hover:bg-layer-3;
 }
-/* === Table Head === */
 
 table thead {
-	@apply border-b border-surface-3 bg-surface-3;
+	@apply bg-layer-1 border-layer-3 top-0 border-b;
 }
-
+table tfoot {
+	@apply bg-layer-1 border-layer-3 bottom-0 w-full border-t;
+}
+/*
 table thead tr {
 	@apply text-left capitalize;
 }
-
+*/
 table thead th {
-	@apply sticky top-0 p-4 font-bold;
+	@apply top-0 p-4 font-bold;
 }
-/* === Table Body === */
-
+/*
 table tbody tr {
-	@apply border-b border-surface-4/20 even:bg-surface-4/5;
+	@apply border-layer-4/20 even:bg-layer-4/5 border-b;
 }
 
+*/
 table tbody td {
-	/* NOTE: removed this to allow wrapping */
 	@apply whitespace-nowrap px-3 py-4 align-middle lg:whitespace-normal;
-
 	@apply !py-3;
+}
+.card {
+	@apply border-layer-3 bg-layer-2 rounded-2 border shadow-3;
+}
+
+.icon {
+	@apply border-layer-3 hover:shadow-inner flex aspect-square items-center justify-center border hover:text-text-1;
 }

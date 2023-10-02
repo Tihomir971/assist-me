@@ -1,23 +1,34 @@
 <script lang="ts">
-	//	import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
-	//	import { Button } from '$lib/components/ui/button';
-	import { createEventDispatcher } from 'svelte';
-	//	import CarbonEdit from '~icons/carbon/edit';
-	import { AlignJustify } from 'lucide-svelte';
-	import { createDialog, melt, type CreateDialogProps } from '@melt-ui/svelte';
+	import { page } from '$app/stores';
 	import { fade, fly } from 'svelte/transition';
-	// Internal helpers
-	import { X } from 'lucide-svelte';
+
+	import { createDialog, melt } from '@melt-ui/svelte';
+	import type { CreateDialogProps } from '@melt-ui/svelte';
+
+	import { X, AlignJustify } from 'lucide-svelte';
+	import type { Tables } from '$lib/types/database.types';
+
+	export let id: string;
+
+	let product: Tables<'m_product'> | undefined;
+	async function loadData() {
+		const { data: result } = await $page.data.supabase
+			.from('m_product')
+			.select()
+			.eq('id', id)
+			.maybeSingle();
+		/* const { data: categories } = await supabase
+			.from('m_product_category')
+			.select('id,name')
+			.order('name'); */
+		console.log(JSON.stringify(result, null, 2));
+		product = result;
+	}
 	const onOpenChange: CreateDialogProps['onOpenChange'] = ({ curr, next }) => {
 		if (curr === false) {
-			console.log('curr', curr);
-			console.log('next', next);
-			console.log('id', id);
-			/* const response = await fetch('/api/getProduct');
-			const product = await response.json();
-			console.log(JSON.stringify(product)); */
+			loadData();
 		} else {
-			console.log('closing');
+			product = undefined;
 		}
 		return next;
 	};
@@ -27,14 +38,6 @@
 	} = createDialog({
 		onOpenChange
 	});
-	const dispatch = createEventDispatcher();
-	export let id: string;
-
-	const handleClick = () => {
-		console.log('id', id);
-		open.set(true);
-		dispatch('edit', { id });
-	};
 </script>
 
 <button use:melt={$trigger} type="button" class="trigger" aria-label="Update dimensions">
@@ -45,59 +48,71 @@
 	{#if $open}
 		<div
 			use:melt={$overlay}
-			class="fixed inset-0 z-50 bg-surface-1"
+			class="bg-layer-1/50 fixed inset-0 z-50"
 			transition:fade={{ duration: 150 }}
 		/>
-		<div
-			use:melt={$content}
-			class="shadow-lg fixed left-0 top-0 z-50 h-screen w-full max-w-[350px] bg-surface-4
-			  p-6 focus:outline-none"
-			transition:fly={{
-				x: -350,
-				duration: 300,
-				opacity: 1
-			}}
-		>
-			<button
-				use:melt={$close}
-				aria-label="Close"
-				class="absolute right-[10px] top-[10px] inline-flex h-6 w-6
+		{#if product}
+			<div
+				use:melt={$content}
+				class="bg-layer-1 fixed right-0 top-0 z-50 h-screen w-1/2 p-6
+			  shadow-3 focus:outline-none"
+				transition:fly={{
+					x: '100%',
+					duration: 300,
+					opacity: 1
+				}}
+			>
+				<button
+					use:melt={$close}
+					aria-label="Close"
+					class="absolute right-[10px] top-[10px] inline-flex h-6 w-6
 				  appearance-none items-center justify-center rounded-full text-primary-8
 				  hover:bg-primary-1 focus:shadow-primary-4 focus:outline-none focus:ring-2
 				  focus:ring-primary-4"
-			>
-				<X class="square-4" />
-			</button>
-			<h2 use:melt={$title} class="text-black mb-0 text-lg font-medium">Notifications</h2>
-			<p use:melt={$description} class="text-zinc-600 mb-5 mt-2 leading-normal">
-				Check out your latest updates.
-			</p>
-			<section>
-				<div class="rounded-md text-zinc-800 shadow bg-gray-10/80 p-4">
-					<h3 class="mb-3 text-base font-semibold">New invitation</h3>
-					<p class="text-sm">
-						You have been invited to join the <strong>Designers</strong> team.
-					</p>
-					<div class="mt-6 flex justify-end gap-4">
-						<button
-							class="bg-zinc-100 text-zinc-600 inline-flex h-8
-							  items-center justify-center rounded-[4px] px-4 font-medium
-							  leading-none focus:outline-none focus:ring-2
-							  focus:ring-primary-4"
-						>
-							Reject
-						</button>
-						<button
-							class="inline-flex h-8 items-center justify-center
-							  rounded-[4px] bg-primary-1 px-4 font-medium leading-none
-							  text-primary-9 focus:outline-none focus:ring-2
-							  focus:ring-primary-4"
-						>
-							Accept
-						</button>
-					</div>
+				>
+					<X size="20" />
+				</button>
+				<h3 use:melt={$title}>Edit product</h3>
+				<p use:melt={$description} class="mb-5 mt-2 leading-normal text-zinc-600">Edit product.</p>
+				<div class="flex flex-col space-y-2">
+					<section class="grid grid-cols-2 gap-2">
+						<div>
+							<label for="id">ID</label>
+							<input id="id" type="text" class="w-full" disabled bind:value={product.id} />
+						</div>
+						<div>
+							<label for="sku">SKU</label>
+							<input id="sku" type="text" class="w-full" bind:value={product.sku} />
+						</div>
+					</section>
+					<section>
+						<div>
+							<label for="name">Name</label>
+							<input id="name" type="text" class="w-full" bind:value={product.name} />
+						</div>
+						<div>
+							<label for="name">Name</label>
+							<input id="name" type="text" class="w-full" bind:value={product.name} />
+						</div>
+						<div>
+							<label for="name">Name</label>
+							<input id="name" type="text" class="w-full" bind:value={product.name} />
+						</div>
+						<div>
+							<label for="name">Name</label>
+							<input id="name" type="text" class="w-full" bind:value={product.name} />
+						</div>
+						<div>
+							<label for="name">Name</label>
+							<input id="name" type="text" class="w-full" bind:value={product.name} />
+						</div>
+						<div>
+							<label for="name">Name</label>
+							<input id="name" type="text" class="w-full" bind:value={product.name} />
+						</div>
+					</section>
 				</div>
-			</section>
-		</div>
+			</div>
+		{/if}
 	{/if}
 </div>

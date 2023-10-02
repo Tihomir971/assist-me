@@ -22,19 +22,19 @@
 	} = ctx;
 </script>
 
-<div class="m-1 flex h-full flex-grow gap-1">
-	<div class="grid w-80 grid-rows-[auto_1fr] gap-1 bg-surface-2">
-		<div class="h-12 bg-surface-2">
+<div class="grid max-h-screen grid-cols-[auto_1fr]">
+	<div class="bg-layer-2 grid max-h-screen w-80 grid-rows-[auto_1fr]">
+		<div class="border-layer-3 h-12 border-b">
 			<CategoryToolbar />
 		</div>
-		<ul class="h-full overflow-auto" {...$tree}>
+		<ul class="h-full overflow-auto rounded-2" {...$tree}>
 			<TreeView {treeItems} />
 		</ul>
 	</div>
-	<!-- <CategoryTree bind:children></CategoryTree> -->
-	<!-- 	<DemoTreeView /> -->
-	<div class="grid w-full grid-rows-[auto_1fr] gap-1">
-		<div class="h-12 w-full rounded-2 bg-surface-2"><PageHeader /></div>
-		<slot />
+	<div class="grid max-h-screen grid-rows-[auto_1fr]">
+		<div class="bg-layer-2 border-layer-3 h-12 w-full border-b"><PageHeader /></div>
+		<div class="grid h-full grid-rows-[1fr_auto] overflow-auto px-2">
+			<slot />
+		</div>
 	</div>
 </div>

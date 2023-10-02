@@ -24,15 +24,16 @@
 		<h1 class="text-yellow-800">Welcome to SvelteKit</h1>
 		<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
 	</div>
-	<div class="bg-surface-2">
+	<div class="bg-layer-2">
 		<h1 class="text-yellow-800">Welcome to SvelteKit</h1>
 		<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
 	</div>
-	<div class="bg-surface-3">
+	<div class="bg-layer-3">
 		<h1 class="text-yellow-800">Welcome to SvelteKit</h1>
 		<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
 	</div>
 
-	<Button type="submit" class="min-w-max"><Accessibility />Help</Button>
-	<Button type="submit" class="min-w-max"><Accessibility /></Button>
+	<Button type="submit"><Accessibility />Help</Button>
+	<Button type="submit">Help</Button>
+	<Button type="submit"><Accessibility /></Button>
 </div>

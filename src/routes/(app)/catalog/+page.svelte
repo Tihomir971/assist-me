@@ -72,17 +72,7 @@
 				}
 			}
 		}),
-		/* 		table.display({
-			id: 'selected',
-			header: '',
-			cell: ({ row }, { pluginStates }) => {
-				const { isSelected, isSomeSubRowsSelected } = pluginStates.select.getRowState(row);
-				return createRender(SelectIndicator, {
-					isSelected,
-					isSomeSubRowsSelected
-				});
-			}
-		}),*/
+
 		table.column({
 			header: 'SKU',
 			accessor: 'sku',
@@ -158,15 +148,7 @@
 		table.column({
 			header: '',
 			accessor: ({ id }) => id,
-			cell: ({ value }) =>
-				createRender(Actions, { id: value.toString() }).on('edit', (ev) => {
-					getProduct(ev.detail.id).then((data) => {
-						hidden1 = false;
-						//	drawerSettings.meta = data;
-						//	drawerSettings.meta.form = form;
-						//	drawerStore.open(drawerSettings);
-					});
-				}),
+			cell: ({ value }) => createRender(Actions, { id: value.toString() }),
 
 			plugins: {
 				sort: { disable: true }
@@ -178,27 +160,22 @@
 		table.createViewModel(columns, {
 			rowDataId: (row) => row.id.toString()
 		});
-	async function getProduct(id: number) {
-		const { data: product } = await supabase.from('m_product').select().eq('id', id).single();
-		const { data: categories } = await supabase
-			.from('m_product_category')
-			.select('id,name')
-			.order('name');
 
-		return { product, categories };
-	}
 	const { selectedDataIds } = pluginStates.select;
 </script>
 
 <!-- SkeletonLab .table-container -->
-<Table.Root {...$tableAttrs}>
+<Table.Root class="bg-layer-2" {...$tableAttrs}>
 	<Table.Header>
 		{#each $headerRows as headerRow}
 			<Subscribe rowAttrs={headerRow.attrs()}>
 				<Table.Row>
 					{#each headerRow.cells as cell (cell.id)}
 						<Subscribe attrs={cell.attrs()} let:attrs props={cell.props()} let:props>
-							<Table.Head {...attrs} class="[&:has([role=checkbox])]:pl-3">
+							<Table.Head
+								{...attrs}
+								class="[&:has([role=checkbox])]:w-[1%] [&:has([role=checkbox])]:whitespace-nowrap"
+							>
 								<Render of={cell.render()} />
 							</Table.Head>
 						</Subscribe>
@@ -213,7 +190,10 @@
 				<Table.Row {...rowAttrs} data-state={$selectedDataIds[row.id] && 'selected'}>
 					{#each row.cells as cell (cell.id)}
 						<Subscribe attrs={cell.attrs()} let:attrs>
-							<Table.Cell class="[&:has([role=checkbox])]:pl-3" {...attrs}>
+							<Table.Cell
+								class="[&:has([role=checkbox])]:w-[1%] [&:has([role=checkbox])]:whitespace-nowrap"
+								{...attrs}
+							>
 								{#if cell.id === 'amount'}
 									<div class="text-right font-medium">
 										<Render of={cell.render()} />
@@ -228,13 +208,12 @@
 			</Subscribe>
 		{/each}
 	</Table.Body>
+	<Table.Footer class="flex h-12 min-w-full">
+		<div class="w-full">
+			{Object.keys($selectedDataIds).length} of{' '}{$rows.length} row(s) selected.
+		</div>
+	</Table.Footer>
 </Table.Root>
-<div class="flex items-center justify-end space-x-4 py-4">
-	<div class="flex-1 text-sm">
-		{Object.keys($selectedDataIds).length} of{' '}
-		{$rows.length} row(s) selected.
-	</div>
-</div>
 <!-- <Drawer
 	placement="right"
 	transitionType="fly"

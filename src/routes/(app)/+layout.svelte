@@ -7,9 +7,11 @@
 	//	export let data: LayoutData;
 </script>
 
-<div class="flex h-full">
-	<Aside />
-	<main class="flex-grow">
+<div id="main-layout" class=" grid h-full grid-cols-[auto_1fr]">
+	<div>
+		<Aside />
+	</div>
+	<main>
 		<slot />
 	</main>
 </div>

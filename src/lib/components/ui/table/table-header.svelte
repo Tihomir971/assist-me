@@ -8,7 +8,7 @@
 	export { className as class };
 </script>
 
-<!-- <thead class={cn('[&_tr]:border-b', className)} {...$$restProps}> -->
+<!-- <thead class={cn("[&_tr]:border-b", className)} {...$$restProps}> -->
 <thead class={cn(className)} {...$$restProps}>
 	<slot />
 </thead>
