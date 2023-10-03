@@ -1,7 +1,8 @@
 <script lang="ts">
+	export let type: 'submit' | 'reset' | 'button' | null | undefined;
 </script>
 
-<button {...$$restProps}><slot /></button>
+<button {type} {...$$restProps} on:click><slot /></button>
 
 <style lang="postcss">
 	button:is([type='button'], [type='reset'], [type='submit']) {

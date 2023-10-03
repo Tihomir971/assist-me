@@ -10,6 +10,7 @@
 	import Button from '$lib/components/Button/Button.svelte';
 	import NumberFormat from './NumberFormat.svelte';
 	import { DateTimeFormat } from '$lib/scripts/format';
+	import { Checkbox } from '$lib';
 	export let id: string;
 
 	let product: Tables<'m_product'> | undefined;
@@ -40,6 +41,14 @@
 	} = createDialog({
 		onOpenChange
 	});
+	const saveProduct = async () => {
+		const { error } = await $page.data.supabase
+			.from('m_product')
+			.update({ name: product?.name })
+			.eq('id', product?.id);
+
+		console.log('error', error);
+	};
 </script>
 
 <button use:melt={$trigger} type="button" class="trigger" aria-label="Update dimensions">
@@ -77,133 +86,141 @@
 				<h3 use:melt={$title}>Edit product</h3>
 				<p use:melt={$description} class="text-zinc-600 mb-5 mt-2 leading-normal">Edit product.</p>
 				<div class="flex flex-col space-y-2">
-					<form method="POST" action="?/updateProduct">
-						<section class="grid grid-cols-2 gap-2">
+					<!-- <form method="POST" action="?/updateProduct"> -->
+					<section class="grid grid-cols-2 gap-2">
+						<div>
+							<label for="id">ID</label>
+							<input id="id" name="id" type="text" class="w-full" disabled value={product.id} />
+						</div>
+						<div>
+							<label for="sku">SKU</label>
+							<input id="sku" name="sku" type="text" class="w-full" bind:value={product.sku} />
+						</div>
+					</section>
+					<section>
+						<div>
+							<label for="name">Name</label>
+							<input id="name" name="name" type="text" class="w-full" bind:value={product.name} />
+						</div>
+						<div class="grid grid-cols-3 gap-2">
 							<div>
-								<label for="id">ID</label>
-								<input id="id" name="id" type="text" class="w-full" disabled value={product.id} />
-							</div>
-							<div>
-								<label for="sku">SKU</label>
-								<input id="sku" name="sku" type="text" class="w-full" bind:value={product.sku} />
-							</div>
-						</section>
-						<section>
-							<div>
-								<label for="name">Name</label>
-								<input id="name" name="name" type="text" class="w-full" bind:value={product.name} />
-							</div>
-							<div class="grid grid-cols-3 gap-2">
-								<div>
-									<label for="barcode">Barcode</label>
-									<input
-										id="barcode"
-										name="barcode"
-										type="text"
-										class="w-full"
-										bind:value={product.barcode}
-									/>
-								</div>
-								<div>
-									<label for="brand">Brand</label>
-									<input
-										id="brand"
-										name="brand"
-										type="text"
-										class="w-full"
-										bind:value={product.brand}
-									/>
-								</div>
-								<div>
-									<label for="mpn">MPN</label>
-									<input id="mpn" name="mpn" type="text" class="w-full" bind:value={product.mpn} />
-								</div>
-							</div>
-							<div>
-								<label for="m_product_category_id">Product category</label>
+								<label for="barcode">Barcode</label>
 								<input
-									id="m_product_category_id"
-									name="m_product_category_id"
+									id="barcode"
+									name="barcode"
 									type="text"
 									class="w-full"
-									bind:value={product.m_product_category_id}
+									bind:value={product.barcode}
 								/>
 							</div>
 							<div>
-								<label for="c_uom_id">c_uom_id</label>
+								<label for="brand">Brand</label>
 								<input
-									id="c_uom_id"
-									name="c_uom_id"
+									id="brand"
+									name="brand"
 									type="text"
 									class="w-full"
-									bind:value={product.c_uom_id}
+									bind:value={product.brand}
 								/>
 							</div>
 							<div>
-								<label for="condition">condition</label>
+								<label for="mpn">MPN</label>
+								<input id="mpn" name="mpn" type="text" class="w-full" bind:value={product.mpn} />
+							</div>
+						</div>
+						<div>
+							<label for="m_product_category_id">Product category</label>
+							<input
+								id="m_product_category_id"
+								name="m_product_category_id"
+								type="text"
+								class="w-full"
+								bind:value={product.m_product_category_id}
+							/>
+						</div>
+						<div>
+							<label for="c_uom_id">UOM</label>
+							<input
+								id="c_uom_id"
+								name="c_uom_id"
+								type="text"
+								class="w-full"
+								bind:value={product.c_uom_id}
+							/>
+						</div>
+						<div>
+							<label for="condition">Condition</label>
+							<input
+								id="condition"
+								name="condition"
+								type="text"
+								class="w-full"
+								bind:value={product.condition}
+							/>
+						</div>
+						<div>
+							<label for="created">Created</label>
+							<input
+								id="created"
+								name="created"
+								type="text"
+								class="w-full"
+								value={DateTimeFormat(product.created)}
+							/>
+						</div>
+						<div>
+							<label for="updated">Updated</label>
+							<input
+								id="updated"
+								name="updated"
+								type="text"
+								class="w-full"
+								value={DateTimeFormat(product.updated)}
+							/>
+						</div>
+						<div class="grid grid-cols-3 gap-2">
+							<div class="flex items-start">
+								<!-- <input hidden name="isselfservice" bind:value={product.isselfservice} /> -->
+								<Checkbox
+									name="isselfservice"
+									labelText="Is self-service?"
+									bind:checked={product.isselfservice}
+									value
+								></Checkbox>
+								<!-- 							<span class="relative inline-flex cursor-pointer align-middle">
+										<input
+											id="isselfservice"
+											name="isselfservice"
+											type="checkbox"
+											bind:value={product.isselfservice}
+										/>
+										<label for="isselfservice">Is self service?</label>
+									</span> -->
+							</div>
+							<div class="flex">
 								<input
-									id="condition"
-									name="condition"
-									type="text"
-									class="w-full"
-									bind:value={product.condition}
+									id="discontinued"
+									name="discontinued"
+									type="checkbox"
+									class=""
+									bind:value={product.isselfservice}
 								/>
+								<label for="discontinued">Discontinued?</label>
 							</div>
-							<div>
-								<label for="created">created</label>
+							<div class="flex">
 								<input
-									id="created"
-									name="created"
-									type="text"
+									id="isactive"
+									name="isactive"
+									type="checkbox"
 									class="w-full"
-									value={DateTimeFormat(product.created)}
+									bind:value={product.isselfservice}
 								/>
+								<label for="isactive">Is active?</label>
 							</div>
-							<div>
-								<label for="updated">updated</label>
-								<input
-									id="updated"
-									name="updated"
-									type="text"
-									class="w-full"
-									value={DateTimeFormat(product.updated)}
-								/>
-							</div>
-							<div class="grid grid-cols-3 gap-2">
-								<div class="">
-									<input
-										id="isselfservice"
-										name="isselfservice"
-										type="checkbox"
-										class="inline w-full"
-										bind:value={product.isselfservice}
-									/>
-									<label for="isselfservice">isselfservice</label>
-								</div>
-								<div class="flex">
-									<label for="discontinued">discontinued</label>
-									<input
-										id="discontinued"
-										name="discontinued"
-										type="checkbox"
-										class="w-full"
-										bind:value={product.isselfservice}
-									/>
-								</div>
-								<div class="flex">
-									<input
-										id="isactive"
-										name="isactive"
-										type="checkbox"
-										class="w-full"
-										bind:value={product.isselfservice}
-									/>
-									<label for="isactive">isactive</label>
-								</div>
-							</div>
-						</section>
-						<Button type="submit">Save</Button>
-					</form>
+						</div>
+					</section>
+					<Button type="button" on:click={saveProduct}>Save</Button>
+					<!-- </form> -->
 				</div>
 			</div>
 		{/if}

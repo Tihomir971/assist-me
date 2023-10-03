@@ -220,7 +220,7 @@ table thead tr {
 }
 */
 table thead th {
-	@apply top-0 p-3 font-bold;
+	@apply p-3 font-bold;
 }
 /*
 table tbody tr {
@@ -229,8 +229,8 @@ table tbody tr {
 
 */
 table tbody td {
-	@apply whitespace-nowrap p-3 align-middle lg:whitespace-normal;
-	@apply !py-3;
+	@apply whitespace-nowrap px-3 py-1 align-middle lg:whitespace-normal;
+	/*@apply !py-3;*/
 }
 .card {
 	@apply rounded-2 border border-layer-3 bg-layer-2 shadow-3;

@@ -36,17 +36,17 @@
 	<!-- svelte-ignore a11y-label-has-associated-control - $label contains the 'for' attribute -->
 	<label class="block text-primary-9" use:melt={$label}>{name ?? ''}</label>
 	<button
-		class="bg-layer-2 flex h-10 min-w-[220px] items-center justify-between rounded-2 px-3 py-2
-    text-text-1 shadow-2 transition-opacity hover:opacity-90"
+		class="flex h-10 min-w-[220px] items-center justify-between rounded-2 bg-layer-3 px-3 py-2
+    text-text-2 transition-opacity hover:opacity-80"
 		use:melt={$trigger}
 		aria-label="Food"
 	>
 		{$selectedLabel || 'Select a flavor'}
-		<ChevronDown class="square-5" />
+		<ChevronDown size="20" />
 	</button>
 	{#if $open}
 		<div
-			class="shadow bg-layer-2 z-10 flex max-h-[300px] flex-col overflow-y-auto rounded-2 p-1 focus:!ring-0"
+			class="shadow z-10 flex max-h-[300px] flex-col overflow-y-auto rounded-2 bg-layer-2 p-1 focus:!ring-0"
 			use:melt={$menu}
 			transition:fade={{ duration: 150 }}
 		>
@@ -73,6 +73,6 @@
 		color: theme(colors.primary.2);
 	}
 	.options {
-		@apply bg-layer-2 relative cursor-pointer rounded-1 py-1 pl-8 pr-4 text-text-2 focus:z-10 focus:text-text-1 data-[highlighted]:bg-primary-3 data-[selected]:bg-primary-10 data-[highlighted]:text-text-1 data-[selected]:text-text-1;
+		@apply relative cursor-pointer rounded-1 bg-layer-2 py-1 pl-8 pr-4 text-text-2 focus:z-10 focus:text-text-1 data-[highlighted]:bg-primary-3 data-[selected]:bg-primary-10 data-[highlighted]:text-text-1 data-[selected]:text-text-1;
 	}
 </style>
