@@ -164,56 +164,60 @@
 	const { selectedDataIds } = pluginStates.select;
 </script>
 
-<!-- SkeletonLab .table-container -->
-<Table.Root class="bg-layer-2" {...$tableAttrs}>
-	<Table.Header>
-		{#each $headerRows as headerRow}
-			<Subscribe rowAttrs={headerRow.attrs()}>
-				<Table.Row>
-					{#each headerRow.cells as cell (cell.id)}
-						<Subscribe attrs={cell.attrs()} let:attrs props={cell.props()} let:props>
-							<Table.Head
-								{...attrs}
-								class="[&:has([role=checkbox])]:w-[1%] [&:has([role=checkbox])]:whitespace-nowrap"
-							>
-								<Render of={cell.render()} />
-							</Table.Head>
-						</Subscribe>
-					{/each}
-				</Table.Row>
-			</Subscribe>
-		{/each}
-	</Table.Header>
-	<Table.Body {...$tableBodyAttrs}>
-		{#each $pageRows as row (row.id)}
-			<Subscribe rowAttrs={row.attrs()} let:rowAttrs>
-				<Table.Row {...rowAttrs} data-state={$selectedDataIds[row.id] && 'selected'}>
-					{#each row.cells as cell (cell.id)}
-						<Subscribe attrs={cell.attrs()} let:attrs>
-							<Table.Cell
-								class="[&:has([role=checkbox])]:w-[1%] [&:has([role=checkbox])]:whitespace-nowrap"
-								{...attrs}
-							>
-								{#if cell.id === 'amount'}
-									<div class="text-right font-medium">
-										<Render of={cell.render()} />
-									</div>
-								{:else}
+<div>
+	<!-- SkeletonLab .table-container -->
+	<Table.Root class="bg-layer-2" {...$tableAttrs}>
+		<Table.Header>
+			{#each $headerRows as headerRow}
+				<Subscribe rowAttrs={headerRow.attrs()}>
+					<Table.Row>
+						{#each headerRow.cells as cell (cell.id)}
+							<Subscribe attrs={cell.attrs()} let:attrs props={cell.props()} let:props>
+								<Table.Head
+									{...attrs}
+									class="[&:has([role=checkbox])]:w-[1%] [&:has([role=checkbox])]:whitespace-nowrap"
+								>
 									<Render of={cell.render()} />
-								{/if}
-							</Table.Cell>
-						</Subscribe>
-					{/each}
-				</Table.Row>
-			</Subscribe>
-		{/each}
-	</Table.Body>
+								</Table.Head>
+							</Subscribe>
+						{/each}
+					</Table.Row>
+				</Subscribe>
+			{/each}
+		</Table.Header>
+		<Table.Body {...$tableBodyAttrs}>
+			{#each $pageRows as row (row.id)}
+				<Subscribe rowAttrs={row.attrs()} let:rowAttrs>
+					<Table.Row {...rowAttrs} data-state={$selectedDataIds[row.id] && 'selected'}>
+						{#each row.cells as cell (cell.id)}
+							<Subscribe attrs={cell.attrs()} let:attrs>
+								<Table.Cell
+									class="[&:has([role=checkbox])]:w-[1%] [&:has([role=checkbox])]:whitespace-nowrap"
+									{...attrs}
+								>
+									{#if cell.id === 'amount'}
+										<div class="text-right font-medium">
+											<Render of={cell.render()} />
+										</div>
+									{:else}
+										<Render of={cell.render()} />
+									{/if}
+								</Table.Cell>
+							</Subscribe>
+						{/each}
+					</Table.Row>
+				</Subscribe>
+			{/each}
+		</Table.Body>
+	</Table.Root>
+</div>
+<div>
 	<Table.Footer class="flex h-12 min-w-full">
 		<div class="w-full">
 			{Object.keys($selectedDataIds).length} of{' '}{$rows.length} row(s) selected.
 		</div>
 	</Table.Footer>
-</Table.Root>
+</div>
 <!-- <Drawer
 	placement="right"
 	transitionType="fly"

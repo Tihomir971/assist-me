@@ -8,7 +8,8 @@
 	import { X, AlignJustify } from 'lucide-svelte';
 	import type { Tables } from '$lib/types/database.types';
 	import Button from '$lib/components/Button/Button.svelte';
-
+	import NumberFormat from './NumberFormat.svelte';
+	import { DateTimeFormat } from '$lib/scripts/format';
 	export let id: string;
 
 	let product: Tables<'m_product'> | undefined;
@@ -46,16 +47,16 @@
 	<span class="sr-only">Open Popover</span>
 </button>
 <div use:melt={$portalled}>
-	{#if $open}
+	{#if $open && product}
 		<div
 			use:melt={$overlay}
-			class="bg-layer-1/50 fixed inset-0 z-50"
+			class="fixed inset-0 z-50 bg-layer-1/50"
 			transition:fade={{ duration: 150 }}
 		/>
 		{#if product}
 			<div
 				use:melt={$content}
-				class="bg-layer-1 fixed right-0 top-0 z-50 h-screen w-1/2 p-6
+				class="fixed right-0 top-0 z-50 h-screen w-1/2 bg-layer-1 p-6
 			  shadow-3 focus:outline-none"
 				transition:fly={{
 					x: '100%',
@@ -74,20 +75,13 @@
 					<X size="20" />
 				</button>
 				<h3 use:melt={$title}>Edit product</h3>
-				<p use:melt={$description} class="mb-5 mt-2 leading-normal text-zinc-600">Edit product.</p>
+				<p use:melt={$description} class="text-zinc-600 mb-5 mt-2 leading-normal">Edit product.</p>
 				<div class="flex flex-col space-y-2">
 					<form method="POST" action="?/updateProduct">
 						<section class="grid grid-cols-2 gap-2">
 							<div>
 								<label for="id">ID</label>
-								<input
-									id="id"
-									name="id"
-									type="text"
-									class="w-full"
-									disabled
-									bind:value={product.id}
-								/>
+								<input id="id" name="id" type="text" class="w-full" disabled value={product.id} />
 							</div>
 							<div>
 								<label for="sku">SKU</label>
@@ -99,50 +93,113 @@
 								<label for="name">Name</label>
 								<input id="name" name="name" type="text" class="w-full" bind:value={product.name} />
 							</div>
+							<div class="grid grid-cols-3 gap-2">
+								<div>
+									<label for="barcode">Barcode</label>
+									<input
+										id="barcode"
+										name="barcode"
+										type="text"
+										class="w-full"
+										bind:value={product.barcode}
+									/>
+								</div>
+								<div>
+									<label for="brand">Brand</label>
+									<input
+										id="brand"
+										name="brand"
+										type="text"
+										class="w-full"
+										bind:value={product.brand}
+									/>
+								</div>
+								<div>
+									<label for="mpn">MPN</label>
+									<input id="mpn" name="mpn" type="text" class="w-full" bind:value={product.mpn} />
+								</div>
+							</div>
 							<div>
-								<label for="barcode">Name</label>
+								<label for="m_product_category_id">Product category</label>
 								<input
-									id="barcode"
-									name="barcode"
+									id="m_product_category_id"
+									name="m_product_category_id"
 									type="text"
 									class="w-full"
-									bind:value={product.barcode}
+									bind:value={product.m_product_category_id}
 								/>
 							</div>
 							<div>
-								<label for="brand">Name</label>
+								<label for="c_uom_id">c_uom_id</label>
 								<input
-									id="brand"
-									name="brand"
+									id="c_uom_id"
+									name="c_uom_id"
 									type="text"
 									class="w-full"
-									bind:value={product.brand}
+									bind:value={product.c_uom_id}
 								/>
 							</div>
 							<div>
-								<label for="c_taxcategory_id">Name</label>
+								<label for="condition">condition</label>
 								<input
-									id="c_taxcategory_id"
+									id="condition"
+									name="condition"
 									type="text"
 									class="w-full"
-									bind:value={product.c_taxcategory_id}
+									bind:value={product.condition}
 								/>
 							</div>
 							<div>
-								<label for="name">Name</label>
-								<input id="name" type="text" class="w-full" bind:value={product.c_uom_id} />
+								<label for="created">created</label>
+								<input
+									id="created"
+									name="created"
+									type="text"
+									class="w-full"
+									value={DateTimeFormat(product.created)}
+								/>
 							</div>
 							<div>
-								<label for="name">Name</label>
-								<input id="name" type="text" class="w-full" bind:value={product.condition} />
+								<label for="updated">updated</label>
+								<input
+									id="updated"
+									name="updated"
+									type="text"
+									class="w-full"
+									value={DateTimeFormat(product.updated)}
+								/>
 							</div>
-							<div>
-								<label for="name">Name</label>
-								<input id="name" type="text" class="w-full" bind:value={product.created} />
-							</div>
-							<div>
-								<label for="name">Name</label>
-								<input id="name" type="text" class="w-full" bind:value={product.updated} />
+							<div class="grid grid-cols-3 gap-2">
+								<div class="">
+									<input
+										id="isselfservice"
+										name="isselfservice"
+										type="checkbox"
+										class="inline w-full"
+										bind:value={product.isselfservice}
+									/>
+									<label for="isselfservice">isselfservice</label>
+								</div>
+								<div class="flex">
+									<label for="discontinued">discontinued</label>
+									<input
+										id="discontinued"
+										name="discontinued"
+										type="checkbox"
+										class="w-full"
+										bind:value={product.isselfservice}
+									/>
+								</div>
+								<div class="flex">
+									<input
+										id="isactive"
+										name="isactive"
+										type="checkbox"
+										class="w-full"
+										bind:value={product.isselfservice}
+									/>
+									<label for="isactive">isactive</label>
+								</div>
 							</div>
 						</section>
 						<Button type="submit">Save</Button>

@@ -209,10 +209,10 @@ table tbody tr {
 }
 
 table thead {
-	@apply bg-layer-1 border-layer-3 top-0 border-b;
+	@apply border-b border-layer-3 bg-layer-1;
 }
 table tfoot {
-	@apply bg-layer-1 border-layer-3 bottom-0 w-full border-t;
+	@apply w-full border-t border-layer-3 bg-layer-1;
 }
 /*
 table thead tr {
@@ -220,7 +220,7 @@ table thead tr {
 }
 */
 table thead th {
-	@apply top-0 p-4 font-bold;
+	@apply top-0 p-3 font-bold;
 }
 /*
 table tbody tr {
@@ -229,13 +229,13 @@ table tbody tr {
 
 */
 table tbody td {
-	@apply whitespace-nowrap px-3 py-4 align-middle lg:whitespace-normal;
+	@apply whitespace-nowrap p-3 align-middle lg:whitespace-normal;
 	@apply !py-3;
 }
 .card {
-	@apply border-layer-3 bg-layer-2 rounded-2 border shadow-3;
+	@apply rounded-2 border border-layer-3 bg-layer-2 shadow-3;
 }
 
 .icon {
-	@apply border-layer-3 hover:shadow-inner flex aspect-square items-center justify-center border hover:text-text-1;
+	@apply flex aspect-square items-center justify-center border border-layer-3 hover:text-text-1 hover:shadow-inner;
 }
