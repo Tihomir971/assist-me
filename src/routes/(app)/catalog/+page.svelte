@@ -5,14 +5,7 @@
 	import CheckboxRow from './CheckboxRow.svelte';
 	import TextRight from './TextRight.svelte';
 	import { Checkbox } from '$lib/components/melt-ui';
-	//	import { Drawer } from '$lib/components/flowbite';
-	/* 	import { sineIn } from 'svelte/easing'; */
 	let hidden1 = true;
-	/* 	let transitionParams = {
-		x: -320,
-		duration: 200,
-		easing: sineIn
-	}; */
 
 	import { writable, readable, type Writable } from 'svelte/store';
 	import type { PageData } from './$types';

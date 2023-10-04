@@ -41,10 +41,17 @@
 	} = createDialog({
 		onOpenChange
 	});
-	const saveProduct = async () => {
+	const updateProduct = async () => {
+		const propertiesToCopy: (keyof Tables<'m_product'>)[] = ['brand'];
+		const targetObject: any = {};
+		for (const property of propertiesToCopy) {
+			if (product?.hasOwnProperty(property)) {
+				targetObject[property] = product[property];
+			}
+		}
 		const { error } = await $page.data.supabase
 			.from('m_product')
-			.update({ name: product?.name })
+			.update(targetObject)
 			.eq('id', product?.id);
 
 		console.log('error', error);
@@ -179,47 +186,24 @@
 							/>
 						</div>
 						<div class="grid grid-cols-3 gap-2">
-							<div class="flex items-start">
-								<!-- <input hidden name="isselfservice" bind:value={product.isselfservice} /> -->
-								<Checkbox
-									name="isselfservice"
-									labelText="Is self-service?"
-									bind:checked={product.isselfservice}
-									value
-								></Checkbox>
-								<!-- 							<span class="relative inline-flex cursor-pointer align-middle">
-										<input
-											id="isselfservice"
-											name="isselfservice"
-											type="checkbox"
-											bind:value={product.isselfservice}
-										/>
-										<label for="isselfservice">Is self service?</label>
-									</span> -->
-							</div>
-							<div class="flex">
-								<input
-									id="discontinued"
-									name="discontinued"
-									type="checkbox"
-									class=""
-									bind:value={product.isselfservice}
-								/>
-								<label for="discontinued">Discontinued?</label>
-							</div>
-							<div class="flex">
-								<input
-									id="isactive"
-									name="isactive"
-									type="checkbox"
-									class="w-full"
-									bind:value={product.isselfservice}
-								/>
-								<label for="isactive">Is active?</label>
-							</div>
+							<!-- <input hidden name="isselfservice" bind:value={product.isselfservice} /> -->
+							<Checkbox
+								name="isselfservice"
+								labelText="Is self-service?"
+								bind:checked={product.isselfservice}
+								value
+							></Checkbox>
+							<Checkbox
+								name="discontinued"
+								labelText="Is Discontinued?"
+								bind:checked={product.discontinued}
+								value
+							></Checkbox>
+							<Checkbox name="isactive" labelText="Is active?" bind:checked={product.isactive} value
+							></Checkbox>
 						</div>
 					</section>
-					<Button type="button" on:click={saveProduct}>Save</Button>
+					<Button type="button" on:click={updateProduct}>Save</Button>
 					<!-- </form> -->
 				</div>
 			</div>

@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { Bell, Grip, Check, ChevronDown } from 'lucide-svelte';
 	import { createSelect, melt } from '@melt-ui/svelte';
 	import type { CreateSelectProps, SelectOption } from '@melt-ui/svelte';
 
@@ -7,6 +6,7 @@
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
 	import { Select } from '$lib/components/melt-ui';
+	import { Switch } from '$lib';
 
 	const options: SelectOption<number>[] = [
 		{ value: 5, label: 'Retail T' },
@@ -51,4 +51,5 @@
 
 <header class="flex h-full items-center justify-between px-4">
 	<Select {options} defaultSelected={options[0]} on:onSelectedChange={onSelected}></Select>
+	<Switch label="Only on Stock?"></Switch>
 </header>
