@@ -6,7 +6,7 @@
 	import TextRight from './TextRight.svelte';
 	import { Checkbox } from '$lib/components/melt-ui';
 	let hidden1 = true;
-
+	import PageHeader from './PageHeader.svelte';
 	import { writable, readable, type Writable } from 'svelte/store';
 	import type { PageData } from './$types';
 	export let data: PageData;
@@ -157,59 +157,50 @@
 	const { selectedDataIds } = pluginStates.select;
 </script>
 
-<div>
-	<!-- SkeletonLab .table-container -->
-	<Table.Root class="bg-layer-2" {...$tableAttrs}>
-		<Table.Header>
-			{#each $headerRows as headerRow}
-				<Subscribe rowAttrs={headerRow.attrs()}>
-					<Table.Row>
-						{#each headerRow.cells as cell (cell.id)}
-							<Subscribe attrs={cell.attrs()} let:attrs props={cell.props()} let:props>
-								<Table.Head
-									{...attrs}
-									class="[&:has([role=checkbox])]:w-[1%] [&:has([role=checkbox])]:whitespace-nowrap"
-								>
-									<Render of={cell.render()} />
-								</Table.Head>
-							</Subscribe>
-						{/each}
-					</Table.Row>
-				</Subscribe>
-			{/each}
-		</Table.Header>
-		<Table.Body {...$tableBodyAttrs}>
-			{#each $pageRows as row (row.id)}
-				<Subscribe rowAttrs={row.attrs()} let:rowAttrs>
-					<Table.Row {...rowAttrs} data-state={$selectedDataIds[row.id] && 'selected'}>
-						{#each row.cells as cell (cell.id)}
-							<Subscribe attrs={cell.attrs()} let:attrs>
-								<Table.Cell
-									class="[&:has([role=checkbox])]:w-[1%] [&:has([role=checkbox])]:whitespace-nowrap"
-									{...attrs}
-								>
-									{#if cell.id === 'amount'}
-										<div class="text-right font-medium">
-											<Render of={cell.render()} />
-										</div>
-									{:else}
+<div class="grid max-h-screen grid-rows-[auto_1fr]">
+	<div class="grid h-full grid-rows-[1fr_auto] overflow-auto px-2">
+		<div class="h-12 w-full border-b border-layer-3 bg-layer-2"><PageHeader /></div>
+		<!-- SkeletonLab .table-container -->
+		<Table.Root {...$tableAttrs}>
+			<Table.Header class="table-auto bg-layer-1">
+				{#each $headerRows as headerRow}
+					<Subscribe rowAttrs={headerRow.attrs()}>
+						<Table.Row>
+							{#each headerRow.cells as cell (cell.id)}
+								<Subscribe attrs={cell.attrs()} let:attrs props={cell.props()} let:props>
+									<Table.Head {...attrs}>
 										<Render of={cell.render()} />
-									{/if}
-								</Table.Cell>
-							</Subscribe>
-						{/each}
-					</Table.Row>
-				</Subscribe>
-			{/each}
-		</Table.Body>
-	</Table.Root>
-</div>
-<div>
-	<Table.Footer class="flex h-12 min-w-full">
-		<div class="w-full">
-			{Object.keys($selectedDataIds).length} of{' '}{$rows.length} row(s) selected.
-		</div>
-	</Table.Footer>
+									</Table.Head>
+								</Subscribe>
+							{/each}
+						</Table.Row>
+					</Subscribe>
+				{/each}
+			</Table.Header>
+			<Table.Body {...$tableBodyAttrs}>
+				{#each $pageRows as row (row.id)}
+					<Subscribe rowAttrs={row.attrs()} let:rowAttrs>
+						<Table.Row {...rowAttrs} data-state={$selectedDataIds[row.id] && 'selected'}>
+							{#each row.cells as cell (cell.id)}
+								<Subscribe attrs={cell.attrs()} let:attrs>
+									<Table.Cell {...attrs}>
+										<Render of={cell.render()} />
+									</Table.Cell>
+								</Subscribe>
+							{/each}
+						</Table.Row>
+					</Subscribe>
+				{/each}
+			</Table.Body>
+			<Table.Footer class="w-full min-w-full bg-layer-1 p-1 text-left">
+				<Table.Row>
+					<th colspan="100" class="p-2">
+						{Object.keys($selectedDataIds).length} of{' '}{$rows.length} row(s) selected.
+					</th>
+				</Table.Row>
+			</Table.Footer>
+		</Table.Root>
+	</div>
 </div>
 <!-- <Drawer
 	placement="right"

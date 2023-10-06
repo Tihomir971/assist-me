@@ -21,9 +21,19 @@ export const load = (async ({ parent, depends, url }) => {
 	}
 
 	//Get searchParams
-	const activeWarehouseId = Number(url.searchParams.get('wh'));
-	//	const activeWarehouseId = url.searchParams.get('wh') ? Number(url.searchParams.get('wh')) : null;
-	const onStock = url.searchParams.get('onStock') === 'true' ? true : false;
+	const paramsOnStock = url.searchParams.get('onStock');
+	const paramsWarehouse = url.searchParams.get('wh');
+	if (!paramsOnStock || !paramsWarehouse) {
+		const newUrl = new URL(url);
+		newUrl?.searchParams?.set('onStock', paramsOnStock ?? 'true');
+		newUrl?.searchParams?.set('wh', paramsWarehouse ?? '5');
+		throw redirect(303, newUrl);
+	}
+
+	const activeWarehouseId = Number(paramsWarehouse);
+	const onStock = paramsOnStock === 'true' ? true : false;
+
+	/* const activeWarehouseId = url.searchParams.get('wh') ? Number(url.searchParams.get('wh')) : null; */
 
 	const activeCategoryId = url.searchParams.get('cat') ? Number(url.searchParams.get('cat')) : null;
 

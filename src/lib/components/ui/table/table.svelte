@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { Card } from '$lib/components/card';
 	import { cn } from '$lib/scripts/tailwind';
 	import type { HTMLTableAttributes } from 'svelte/elements';
 
@@ -8,9 +9,9 @@
 	export { className as class };
 </script>
 
-<div class="w-full overflow-auto">
-	<table class={cn('w-full table-auto', className)} {...$$restProps}>
+<Card class="m-1 block max-h-full overflow-auto">
+	<table class={cn('h-full w-full ', className)} {...$$restProps}>
 		<!-- <table class={cn("w-full caption-bottom text-sm", className)} {...$$restProps}> -->
 		<slot />
 	</table>
-</div>
+</Card>

@@ -200,6 +200,7 @@ abbr {
 	@apply relative w-full table-auto overflow-auto text-text-1;
 	@apply rounded-2;
 } */
+
 /* table tbody {
 	@apply overflow-auto;
 } */
@@ -207,34 +208,31 @@ abbr {
 table tbody tr {
 	@apply hover:bg-layer-3;
 }
-
+/*
 table thead {
-	@apply border-b border-layer-3 bg-layer-1;
+	@apply sticky top-0 border-b border-layer-3 bg-layer-1;
 }
 table tfoot {
 	@apply w-full border-t border-layer-3 bg-layer-1;
-}
+}*/
 /*
 table thead tr {
 	@apply text-left capitalize;
 }
 */
-table thead th {
-	@apply p-3 font-bold;
-}
+
 /*
 table tbody tr {
 	@apply border-layer-4/20 even:bg-layer-4/5 border-b;
 }
 
 */
+/*
 table tbody td {
 	@apply whitespace-nowrap px-3 py-1 align-middle lg:whitespace-normal;
-	/*@apply !py-3;*/
+	
 }
-.card {
-	@apply rounded-2 border border-layer-3 bg-layer-2 shadow-3;
-}
+*/
 
 .icon {
 	@apply flex aspect-square items-center justify-center border border-layer-3 hover:text-text-1 hover:shadow-inner;

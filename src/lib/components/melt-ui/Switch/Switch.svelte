@@ -1,26 +1,21 @@
 <script lang="ts">
-	import { createSwitch, melt, type CreateSwitchProps } from '@melt-ui/svelte';
+	import { createSwitch, melt } from '@melt-ui/svelte';
+
 	export let label: string | undefined = undefined;
 	export let checked: boolean | undefined = undefined;
-	const onCheckedChange: CreateSwitchProps['onCheckedChange'] = ({ curr, next }) => {
-		if (next) {
-			checked = next;
-		}
-		return next;
-	};
+
 	const {
 		elements: { root, input }
-	} = createSwitch({ defaultChecked: checked, onCheckedChange });
+	} = createSwitch({ defaultChecked: checked });
 </script>
 
 <form>
 	<div class="flex items-center">
-		{#if label}
-			<label class="text-magnum-900 pr-4 leading-none" for="airplane-mode" id="airplane-mode-label">
-				{label}
-			</label>
-		{/if}
+		<label class=" pr-4 leading-none" for="airplane-mode" id="airplane-mode-label">
+			{label}
+		</label>
 		<button
+			on:m-click
 			use:melt={$root}
 			class="relative h-6 cursor-default rounded-full bg-layer-3 transition-colors data-[state=checked]:bg-[--link]"
 			id="airplane-mode"

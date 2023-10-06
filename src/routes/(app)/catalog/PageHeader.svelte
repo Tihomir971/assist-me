@@ -5,9 +5,9 @@
 	import { fade } from 'svelte/transition';
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
-	import { Select } from '$lib/components/melt-ui';
-	import { Switch } from '$lib';
+	import { Select, Switch } from '$lib/components/melt-ui';
 
+	let checked = true;
 	const options: SelectOption<number>[] = [
 		{ value: 5, label: 'Retail T' },
 		{ value: 6, label: 'Service T' },
@@ -47,9 +47,15 @@
 		},
 		onSelectedChange
 	});
+	const switchOnStock = () => {
+		checked = !checked;
+		const newUrl = new URL($page.url);
+		newUrl?.searchParams?.set('onStock', checked ? 'true' : 'false');
+		goto(newUrl);
+	};
 </script>
 
 <header class="flex h-full items-center justify-between px-4">
 	<Select {options} defaultSelected={options[0]} on:onSelectedChange={onSelected}></Select>
-	<Switch label="Only on Stock?"></Switch>
+	<Switch label="Only on Stock?" bind:checked on:m-click={switchOnStock}></Switch>
 </header>

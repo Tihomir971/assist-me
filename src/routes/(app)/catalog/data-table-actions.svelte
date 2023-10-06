@@ -3,29 +3,40 @@
 	import { fade, fly } from 'svelte/transition';
 
 	import { createDialog, melt } from '@melt-ui/svelte';
-	import type { CreateDialogProps } from '@melt-ui/svelte';
+	import type { ComboboxOption, CreateDialogProps, SelectOption } from '@melt-ui/svelte';
 
 	import { X, AlignJustify } from 'lucide-svelte';
 	import type { Tables } from '$lib/types/database.types';
 	import Button from '$lib/components/Button/Button.svelte';
 	import NumberFormat from './NumberFormat.svelte';
 	import { DateTimeFormat } from '$lib/scripts/format';
-	import { Checkbox } from '$lib';
+	import { Checkbox } from '$lib/components/carbon';
+	import { Combobox } from '$lib/components/melt-ui';
 	export let id: string;
 
 	let product: Tables<'m_product'> | undefined;
+	let categories: SelectOption<number>[];
+
 	async function loadData() {
-		const { data: result } = await $page.data.supabase
-			.from('m_product')
-			.select()
-			.eq('id', id)
-			.maybeSingle();
-		/* const { data: categories } = await supabase
-			.from('m_product_category')
-			.select('id,name')
-			.order('name'); */
-		console.log(JSON.stringify(result, null, 2));
-		product = result;
+		const getProduct = async () => {
+			const { data } = await $page.data.supabase
+				.from('m_product')
+				.select()
+				.eq('id', id)
+				.maybeSingle();
+
+			return data;
+		};
+		const getCategories = async () => {
+			const { data } = await $page.data.supabase
+				.from('m_product_category')
+				.select('value:id,label:name')
+				.order('name');
+
+			return data;
+		};
+		product = await getProduct();
+		categories = await getCategories();
 	}
 	const onOpenChange: CreateDialogProps['onOpenChange'] = ({ curr, next }) => {
 		if (curr === false) {
@@ -42,7 +53,15 @@
 		onOpenChange
 	});
 	const updateProduct = async () => {
-		const propertiesToCopy: (keyof Tables<'m_product'>)[] = ['brand'];
+		const propertiesToCopy: (keyof Tables<'m_product'>)[] = [
+			'barcode',
+			'mpn',
+			'name',
+			'm_product_category_id',
+			'isactive',
+			'isselfservice',
+			'discontinued'
+		];
 		const targetObject: any = {};
 		for (const property of propertiesToCopy) {
 			if (product?.hasOwnProperty(property)) {
@@ -54,8 +73,10 @@
 			.update(targetObject)
 			.eq('id', product?.id);
 
-		console.log('error', error);
+		/* console.log('targetObject', targetObject); */
+		return;
 	};
+	/* let value: stir; */
 </script>
 
 <button use:melt={$trigger} type="button" class="trigger" aria-label="Update dimensions">
@@ -197,11 +218,20 @@
 								name="discontinued"
 								labelText="Is Discontinued?"
 								bind:checked={product.discontinued}
-								value
 							></Checkbox>
 							<Checkbox name="isactive" labelText="Is active?" bind:checked={product.isactive} value
 							></Checkbox>
 						</div>
+						<!-- <Select name="Category" bind:options={categories}></Select> -->
+						<!-- <input hidden name="m_product_category_id" bind:value={product.m_product_category_id} /> -->
+						{#if categories}
+							<Combobox
+								labelText="Category"
+								placeholder="Choose category"
+								comboboxOptions={categories}
+								bind:value={product.m_product_category_id}
+							></Combobox>
+						{/if}
 					</section>
 					<Button type="button" on:click={updateProduct}>Save</Button>
 					<!-- </form> -->

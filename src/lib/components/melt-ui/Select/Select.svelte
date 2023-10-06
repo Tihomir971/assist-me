@@ -34,7 +34,7 @@
 
 <div class="flex items-center gap-2" class:flex-row={flexRow}>
 	<!-- svelte-ignore a11y-label-has-associated-control - $label contains the 'for' attribute -->
-	<label class="block text-primary-9" use:melt={$label}>{name ?? ''}</label>
+	<label class="block" use:melt={$label}>{name ?? ''}</label>
 	<button
 		class="flex h-10 min-w-[220px] items-center justify-between rounded-2 bg-layer-3 px-3 py-2
     text-text-2 transition-opacity hover:opacity-80"

@@ -8,7 +8,7 @@
 	export { className as class };
 </script>
 
-<tbody class={cn('h-full overflow-auto', className)} {...$$restProps}>
+<tbody class={cn('whitespace-nowrap', className)} {...$$restProps}>
 	<slot />
 </tbody>
 <!-- <tbody class={cn("[&_tr:last-child]:border-0", className)} {...$$restProps}>

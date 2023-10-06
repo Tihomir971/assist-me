@@ -10,7 +10,7 @@
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <div
-	class={cn('card', className)}
+	class={cn('m-2 rounded-2 border border-layer-3 bg-layer-2 shadow-3', className)}
 	{...$$restProps}
 	on:click
 	on:focusin
