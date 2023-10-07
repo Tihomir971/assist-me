@@ -10,7 +10,7 @@ export const load = (async ({ parent, depends }) => {
 
 	const { data: categories } = await supabase
 		.from('m_product_category')
-		.select('id,parent_id,text: name')
+		.select('id,parent_id, name')
 		//.select('id,parent_id,content: name')
 		.order('name');
 

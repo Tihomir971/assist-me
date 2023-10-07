@@ -11,7 +11,7 @@
 	import type { PageData } from './$types';
 	export let data: PageData;
 	let { supabase } = data;
-	$: ({ supabase } = data);
+	$: ({ supabase, categories } = data);
 
 	//DataTable
 	// import Headles Table
@@ -29,6 +29,7 @@
 	} from 'svelte-headless-table/plugins';
 	const products = writable(data.products);
 	$: $products = data.products;
+
 	const table = createTable(products, {
 		sort: addSortBy({ disableMultiSort: true }),
 		/* page: addPagination({ initialPageSize: 17 }), */

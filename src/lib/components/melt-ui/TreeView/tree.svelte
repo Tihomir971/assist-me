@@ -7,7 +7,7 @@
 
 	export type TreeItem = {
 		id: number | string;
-		text: string;
+		name: string;
 		icon?: Icon;
 
 		children?: TreeItem[];
@@ -47,7 +47,7 @@
 	}
 </script>
 
-{#each treeItems as { id, text, icon, children }}
+{#each treeItems as { id, name, icon, children }}
 	{@const itemId = id.toString()}
 	{@const hasChildren = !!children?.length}
 
@@ -75,7 +75,7 @@
 			{#if icon !== undefined}
 				<svelte:component this={icons[icon]} class="h-4 w-4" />
 			{/if}
-			<span>{text}</span>
+			<span>{name}</span>
 
 			<!-- Selected icon. -->
 			<!-- 			{#if $isSelected(itemId)}

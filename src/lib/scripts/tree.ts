@@ -2,7 +2,7 @@ import type { TreeItem } from '$lib/components/melt-ui';
 
 interface DataTableRow {
 	id: number;
-	text: string;
+	name: string;
 	parent_id: number | null;
 }
 
