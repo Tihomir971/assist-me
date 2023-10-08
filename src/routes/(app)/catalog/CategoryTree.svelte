@@ -74,7 +74,7 @@
 				}
 			}}><Pencil /></button
 		>
-		<button on:click={() => invalidate('app:categories')}><FolderSync /></button>
+		<button on:click={() => invalidate('catalog:categories')}><FolderSync /></button>
 		<button on:click><Minimize2 /></button>
 		<button on:click><Search /></button>
 	</div>

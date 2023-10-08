@@ -6,7 +6,9 @@ export const load = (async ({ parent, depends }) => {
 	if (!session) {
 		throw redirect(303, '/auth');
 	}
-	depends('app:categories');
+	console.log('(app) catalog +layout.ts', Date());
+
+	depends('catalog:categories');
 
 	const { data: categories } = await supabase
 		.from('m_product_category')

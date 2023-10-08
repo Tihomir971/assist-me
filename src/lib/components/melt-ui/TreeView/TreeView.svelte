@@ -5,11 +5,9 @@
 	import Tree from './tree.svelte';
 
 	export let treeItems: TreeItem[];
-	const ctx = createTreeView({
-		defaultExpanded: ['lib-0', 'tree-0']
-	});
+	const ctx = createTreeView({});
 	setContext('tree', ctx);
-	const {
+	let {
 		elements: { tree }
 	} = ctx;
 </script>
