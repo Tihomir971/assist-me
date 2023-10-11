@@ -1,20 +1,15 @@
 import { redirect } from '@sveltejs/kit';
 import type { PageLoad } from './$types';
-type Product = {
+import type { Tables } from '$lib/types/database.types';
+type Product = Partial<Tables<'m_product'>> & {
 	id: number;
-	barcode: string | null;
-	sku: string | null;
-	name: string | null;
 	qtyonhand: number;
 	pricePurchase: number;
 	priceMarket: number;
 	priceRetail: number;
 	priceRecommended: number;
 	taxRate: number;
-	mpn?: string | null;
-	isactive: boolean;
-	isselfservice: boolean;
-	discontinued: boolean;
+	m_storageonhand: { qtyonhand: number }[];
 };
 
 export const load = (async ({ parent, depends, url }) => {
@@ -61,44 +56,29 @@ export const load = (async ({ parent, depends, url }) => {
 
 	const products: Product[] = [];
 	data?.forEach((product) => {
-		const {
-			id,
-			barcode,
-			mpn,
-			sku,
-			name,
-			c_taxcategory_id,
-			m_storageonhand,
-			qPriceRetail,
-			qPricePurchase,
-			qPriceMarket,
-			isactive,
-			isselfservice,
-			discontinued
-		} = product;
 		// Assign quantity  for product if exist
 		let qtyonhand = 0;
-		if (Array.isArray(m_storageonhand) && m_storageonhand?.length !== 0) {
-			({ qtyonhand } = m_storageonhand[0]);
+		if (Array.isArray(product.m_storageonhand) && product.m_storageonhand?.length !== 0) {
+			({ qtyonhand } = product.m_storageonhand[0]);
 		}
 
 		if (onStock === true && qtyonhand === 0) {
 			return;
 		}
 
-		const taxRate = c_taxcategory_id === 2 ? 0.1 : 0.2;
+		const taxRate = product.c_taxcategory_id === 2 ? 0.1 : 0.2;
 
 		// Assign retail price for product if exist
 		let priceRetail = 0;
-		if (Array.isArray(qPriceRetail) && qPriceRetail?.length !== 0) {
-			const { pricestd } = qPriceRetail[0];
+		if (Array.isArray(product.qPriceRetail) && product.qPriceRetail?.length !== 0) {
+			const { pricestd } = product.qPriceRetail[0];
 			priceRetail = pricestd ?? 0;
 		}
 
 		// Assign retail price for product if exist
 		let priceMarket = 0;
-		if (Array.isArray(qPriceMarket) && qPriceMarket?.length !== 0) {
-			const { pricelist } = qPriceMarket[0];
+		if (Array.isArray(product.qPriceMarket) && product.qPriceMarket?.length !== 0) {
+			const { pricelist } = product.qPriceMarket[0];
 			if (pricelist) {
 				priceMarket = pricelist;
 			}
@@ -106,8 +86,8 @@ export const load = (async ({ parent, depends, url }) => {
 
 		// Assign quantity  for product if exist
 		let pricePurchase = 0;
-		if (Array.isArray(qPricePurchase) && qPricePurchase?.length !== 0) {
-			const { pricestd } = qPricePurchase[0];
+		if (Array.isArray(product.qPricePurchase) && product.qPricePurchase?.length !== 0) {
+			const { pricestd } = product.qPricePurchase[0];
 			pricePurchase = pricestd ? pricestd * (1 + taxRate) : 0;
 		}
 
@@ -128,20 +108,21 @@ export const load = (async ({ parent, depends, url }) => {
 		}
 
 		products.push({
-			id: id,
-			barcode: barcode,
-			sku: sku,
-			name: name,
+			id: product.id,
+			barcode: product.barcode,
+			sku: product.sku,
+			name: product.name,
 			qtyonhand: qtyonhand,
 			priceRetail: priceRetail,
 			pricePurchase: pricePurchase,
 			priceMarket: priceMarket,
 			priceRecommended: priceRecommended,
-			mpn: mpn,
+			mpn: product.mpn,
 			taxRate: taxRate,
-			isactive: isactive,
-			isselfservice: isselfservice,
-			discontinued: discontinued
+			isactive: product.isactive,
+			isselfservice: product.isselfservice,
+			discontinued: product.discontinued,
+			m_storageonhand: product.m_storageonhand
 		});
 	});
 

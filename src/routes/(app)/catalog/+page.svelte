@@ -1,28 +1,20 @@
 <script lang="ts">
+	import type { PageData } from './$types';
+	import { writable } from 'svelte/store';
+
 	import Actions from './actions-product.svelte';
 	import NumberFormat from './NumberFormat.svelte';
-	import CheckboxHeader from './CheckboxHeader.svelte';
-	import CheckboxRow from './CheckboxRow.svelte';
 	import TextRight from './TextRight.svelte';
-	import { Checkbox } from '$lib/components/melt-ui';
-	let hidden1 = true;
 	import PageHeader from './PageHeader.svelte';
-	import { writable, readable, type Writable } from 'svelte/store';
-	import type { PageData } from './$types';
-	export let data: PageData;
-	let { supabase } = data;
-	$: ({ supabase, categories } = data);
-
-	//DataTable
-	// import Headles Table
+	import { Checkbox } from '$lib/components/melt-ui';
 	import * as Table from '$lib/components/ui/table';
 
+	export let data: PageData;
+
 	import { createTable, createRender, Subscribe, Render } from 'svelte-headless-table';
-	// import Headles Table Plugins
 	import {
 		addColumnFilters,
 		addHiddenColumns,
-		/* addPagination, */
 		addSelectedRows,
 		addSortBy,
 		addTableFilter
@@ -94,7 +86,6 @@
 					fractionDigits: 2
 				})
 		}),
-
 		table.column({
 			header: createRender(TextRight, { text: 'Purch.' }),
 			accessor: 'pricePurchase',
@@ -143,7 +134,6 @@
 			header: '',
 			accessor: ({ id }) => id,
 			cell: ({ value }) => createRender(Actions, { id: value.toString() }),
-
 			plugins: {
 				sort: { disable: true }
 			}
@@ -152,7 +142,7 @@
 	//Create View Model
 	const { headerRows, pageRows, tableAttrs, tableBodyAttrs, flatColumns, pluginStates, rows } =
 		table.createViewModel(columns, {
-			rowDataId: (row) => row.id.toString()
+			rowDataId: (row) => row.id?.toString()
 		});
 
 	const { selectedDataIds } = pluginStates.select;
