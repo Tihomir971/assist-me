@@ -9,29 +9,34 @@
 	export let name: string | undefined = undefined;
 	export let value: number | null;
 	/* export let value: ComboboxOption<number> | undefined; */
-	export let comboboxOptions: ComboboxOption<number>[];
+	export let options: ComboboxOption<number>[];
 	/* export let options; */
-	const handleOpen: CreateComboboxProps<number>['onSelectedChange'] = ({ curr, next }) => {
-		console.log('next', JSON.stringify(next, null, 2));
+	/* 	const onSelectedChange: CreateComboboxProps<number>['onSelectedChange'] = ({ curr, next }) => {
 		value = next?.value ?? null;
 		return next;
-	};
+	}; */
 	const {
 		elements: { menu, input, option, label },
-		states: { open, inputValue, touchedInput },
+		states: { open, inputValue, touchedInput, selected },
 		helpers: { isSelected }
 	} = createCombobox({
 		forceVisible: true,
-		onSelectedChange: handleOpen,
-		defaultSelected: comboboxOptions.find((obj) => obj.value === value)
+		/* onSelectedChange, */
+		defaultSelected: options.find((obj) => obj.value === value)
 	});
 
+	$: if (!$open) {
+		$inputValue = $selected?.label ?? '';
+		value = $selected?.value ?? null;
+		/* console.log('$inputValue', $inputValue); */
+	}
+
 	$: filteredOptions = $touchedInput
-		? comboboxOptions.filter(({ label, value }) => {
+		? options.filter(({ label, value }) => {
 				const normalizedInput = $inputValue.toLowerCase();
 				return label?.toLowerCase().includes(normalizedInput);
 		  })
-		: comboboxOptions;
+		: options;
 </script>
 
 <div class="flex w-full flex-col gap-1">
@@ -39,9 +44,6 @@
 	<label use:melt={$label} for={name}>
 		<span>{labelText}</span>
 	</label>
-	<!-- 	{#if $selected}
-		<input hidden {name} value={$selected.value} />
-	{/if} -->
 	<div class="relative">
 		<input use:melt={$input} type="text" {placeholder} class="w-full" />
 		<div class="absolute right-2 top-1/2 z-10 -translate-y-1/2 text-primary-9">

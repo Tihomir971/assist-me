@@ -12,6 +12,9 @@ type Product = {
 	priceRecommended: number;
 	taxRate: number;
 	mpn?: string | null;
+	isactive: boolean;
+	isselfservice: boolean;
+	discontinued: boolean;
 };
 
 export const load = (async ({ parent, depends, url }) => {
@@ -38,7 +41,7 @@ export const load = (async ({ parent, depends, url }) => {
 	const activeCategoryId = url.searchParams.get('cat') ? Number(url.searchParams.get('cat')) : null;
 
 	const columns =
-		'id,barcode,mpn,sku,name,c_taxcategory_id,c_uom_id,m_storageonhand(qtyonhand),qPriceRetail:m_productprice(pricestd),qPricePurchase:m_productprice(pricestd),qPriceMarket:m_productprice(pricelist),c_taxcategory(c_tax(rate))';
+		'id,barcode,mpn,sku,name,c_taxcategory_id,c_uom_id,m_storageonhand(qtyonhand),qPriceRetail:m_productprice(pricestd),qPricePurchase:m_productprice(pricestd),qPriceMarket:m_productprice(pricelist),c_taxcategory(c_tax(rate)),isactive,isselfservice,discontinued';
 
 	let query = supabase
 		.from('m_product')
@@ -68,7 +71,10 @@ export const load = (async ({ parent, depends, url }) => {
 			m_storageonhand,
 			qPriceRetail,
 			qPricePurchase,
-			qPriceMarket
+			qPriceMarket,
+			isactive,
+			isselfservice,
+			discontinued
 		} = product;
 		// Assign quantity  for product if exist
 		let qtyonhand = 0;
@@ -132,7 +138,10 @@ export const load = (async ({ parent, depends, url }) => {
 			priceMarket: priceMarket,
 			priceRecommended: priceRecommended,
 			mpn: mpn,
-			taxRate: taxRate
+			taxRate: taxRate,
+			isactive: isactive,
+			isselfservice: isselfservice,
+			discontinued: discontinued
 		});
 	});
 

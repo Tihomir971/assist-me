@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Actions from './data-table-actions.svelte';
+	import Actions from './actions-product.svelte';
 	import NumberFormat from './NumberFormat.svelte';
 	import CheckboxHeader from './CheckboxHeader.svelte';
 	import CheckboxRow from './CheckboxRow.svelte';

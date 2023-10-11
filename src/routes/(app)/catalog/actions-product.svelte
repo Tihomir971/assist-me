@@ -11,7 +11,8 @@
 	import NumberFormat from './NumberFormat.svelte';
 	import { DateTimeFormat } from '$lib/scripts/format';
 	import { Checkbox } from '$lib/components/carbon';
-	import { Combobox } from '$lib/components/melt-ui';
+	import { Combobox, addToast } from '$lib/components/melt-ui';
+	import { invalidate } from '$app/navigation';
 	export let id: string;
 
 	let product: Tables<'m_product'> | undefined;
@@ -72,7 +73,27 @@
 			.from('m_product')
 			.update(targetObject)
 			.eq('id', product?.id);
-
+		if (error) {
+			addToast({
+				data: {
+					title: error.message,
+					description: error.details,
+					color: 'bg-red-5',
+					hint: error.hint,
+					code: error.code
+				}
+			});
+		} else {
+			$open = false;
+			addToast({
+				data: {
+					title: 'Success',
+					description: 'Product updated!',
+					color: 'bg-purple-5'
+				}
+			});
+		}
+		invalidate('catalog:products');
 		/* console.log('targetObject', targetObject); */
 		return;
 	};
@@ -87,13 +108,13 @@
 	{#if $open && product}
 		<div
 			use:melt={$overlay}
-			class="fixed inset-0 z-50 bg-layer-1/50"
+			class="fixed inset-0 z-40 bg-layer-1/50"
 			transition:fade={{ duration: 150 }}
 		/>
 		{#if product}
 			<div
 				use:melt={$content}
-				class="fixed right-0 top-0 z-50 h-screen w-1/2 bg-layer-1 p-6
+				class="fixed right-0 top-0 z-40 h-screen w-1/2 bg-layer-1 p-6
 			  shadow-3 focus:outline-none"
 				transition:fly={{
 					x: '100%',
@@ -157,14 +178,22 @@
 							</div>
 						</div>
 						<div>
-							<label for="m_product_category_id">Product category</label>
+							{#if categories}
+								<Combobox
+									labelText="Product category"
+									placeholder="Choose category"
+									options={categories}
+									bind:value={product.m_product_category_id}
+								></Combobox>
+							{/if}
+							<!-- 	<label for="m_product_category_id">Product category</label>
 							<input
-								id="m_product_category_id"
-								name="m_product_category_id"
+							id="m_product_category_id"
+							name="m_product_category_id"
 								type="text"
 								class="w-full"
 								bind:value={product.m_product_category_id}
-							/>
+							/> -->
 						</div>
 						<div>
 							<label for="c_uom_id">UOM</label>
@@ -224,16 +253,14 @@
 						</div>
 						<!-- <Select name="Category" bind:options={categories}></Select> -->
 						<!-- <input hidden name="m_product_category_id" bind:value={product.m_product_category_id} /> -->
-						{#if categories}
-							<Combobox
-								labelText="Category"
-								placeholder="Choose category"
-								comboboxOptions={categories}
-								bind:value={product.m_product_category_id}
-							></Combobox>
-						{/if}
 					</section>
 					<Button type="button" on:click={updateProduct}>Save</Button>
+					<Button
+						type="button"
+						on:click={() => {
+							$open = false;
+						}}>Cancel</Button
+					>
 					<!-- </form> -->
 				</div>
 			</div>

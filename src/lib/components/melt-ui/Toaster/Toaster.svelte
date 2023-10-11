@@ -2,6 +2,8 @@
 	export type ToastData = {
 		title: string;
 		description: string;
+		hint?: string;
+		code?: string;
 		color: string;
 	};
 
@@ -35,13 +37,23 @@
 				class="relative flex w-[24rem] max-w-[calc(100vw-2rem)] items-center justify-between gap-4 p-5"
 			>
 				<div>
-					<h3 use:melt={$title(id)} class="flex items-center gap-2 font-semibold">
+					<h4 use:melt={$title(id)} class="flex items-center gap-2 font-semibold">
 						{data.title}
 						<span class="square-1.5 rounded-full {data.color}" />
-					</h3>
+					</h4>
 					<div use:melt={$description(id)}>
 						{data.description}
 					</div>
+					{#if data.hint}
+						<div use:melt={$description(id)}>
+							{data.hint}
+						</div>
+					{/if}
+					{#if data.code}
+						<div use:melt={$description(id)}>
+							{data.code}
+						</div>
+					{/if}
 				</div>
 				<button
 					use:melt={$close(id)}

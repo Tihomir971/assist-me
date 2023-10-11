@@ -51,10 +51,12 @@
 	{@const itemId = id.toString()}
 	{@const hasChildren = !!children?.length}
 
-	<li class={hasChildren ? 'pl-4' : 'pl-9'}>
+	<li class={hasChildren ? 'pl-3' : 'pl-8'}>
 		<button
 			on:m-click={() => rerunLoadFunction(itemId)}
-			class="rounded-md shadow-none !bg-transparent flex min-h-[1.5rem] w-full flex-1 items-center p-0 text-left font-normal text-text-2 focus:!bg-primary-2 focus:!text-indigo-6 active:!bg-primary-2 active:!text-indigo-6"
+			class="flex items-center rounded-2 p-1 text-left hover:bg-layer-3/50 focus:bg-layer-3"
+			class:bg-layer-3={$isSelected(itemId)}
+			class:text-text-1={$isSelected(itemId)}
 			use:melt={$item({
 				id: itemId,
 				hasChildren

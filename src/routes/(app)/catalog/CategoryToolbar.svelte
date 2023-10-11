@@ -74,14 +74,27 @@
 			.update(targetObject)
 			.eq('id', category?.id);
 
-		addToast({
-			data: {
-				title: error ?? 'Success',
-				description: error ?? 'Category updated!',
-				color: error ? 'bg-red-5' : 'bg-green-5'
-			}
-		});
-		/* console.log('targetObject', targetObject); */
+		if (error) {
+			addToast({
+				data: {
+					title: error.message,
+					description: error.details,
+					color: 'bg-red-5',
+					hint: error.hint,
+					code: error.code
+				}
+			});
+		} else {
+			$open = false;
+			addToast({
+				data: {
+					title: 'Success',
+					description: 'Category updated!',
+					color: 'bg-purple-5'
+				}
+			});
+		}
+
 		return;
 	};
 </script>
@@ -212,7 +225,7 @@
 							<Combobox
 								labelText="Parent Category"
 								placeholder="Choose category"
-								comboboxOptions={categories}
+								options={categories}
 								bind:value={category.parent_id}
 							></Combobox>
 						{/if}

@@ -11,7 +11,7 @@
 	import NumberFormat from './NumberFormat.svelte';
 	import { DateTimeFormat } from '$lib/scripts/format';
 	import { Checkbox } from '$lib/components/carbon';
-	import { Combobox } from '$lib/components/melt-ui';
+	import { Combobox, addToast } from '$lib/components/melt-ui';
 	import { getContext, onMount } from 'svelte';
 	import type { CategoryCtx } from '$lib/types/app.types';
 	export let id: Number;
@@ -82,6 +82,26 @@
 			.update(targetObject)
 			.eq('id', category?.id);
 
+		if (error) {
+			addToast({
+				data: {
+					title: error.message,
+					description: error.details,
+					color: 'bg-red-5',
+					hint: error.hint,
+					code: error.code
+				}
+			});
+		} else {
+			$open = false;
+			addToast({
+				data: {
+					title: 'Success',
+					description: 'Category updated!',
+					color: 'bg-purple-5'
+				}
+			});
+		}
 		/* console.log('targetObject', targetObject); */
 		return;
 	};
