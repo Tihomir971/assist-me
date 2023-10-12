@@ -15,8 +15,8 @@ dependencies:
     specifier: ^2.0.0
     version: 2.0.0
   lucide-svelte:
-    specifier: ^0.285.0
-    version: 0.285.0(svelte@4.2.1)
+    specifier: ^0.286.0
+    version: 0.286.0(svelte@4.2.1)
   tailwind-merge:
     specifier: ^1.14.0
     version: 1.14.0
@@ -1758,8 +1758,8 @@ packages:
       yallist: 4.0.0
     dev: true
 
-  /lucide-svelte@0.285.0(svelte@4.2.1):
-    resolution: {integrity: sha512-GAvdcTWsgE58IbB7yKM9Y3bEwLpI76VICb6c3FXeaCnSJHFtZDOXysnr71wvjNVZYNLXCv1b7oNLN6o5nMt0sA==}
+  /lucide-svelte@0.286.0(svelte@4.2.1):
+    resolution: {integrity: sha512-th2zBW3A0EeR4abR2k8R6Kms+jIx8cmgu6Y56OVQX7oqqRBi2R6q32M4vHnbFLW6Bmtok3bCbgaLJTTC+9g7SA==}
     peerDependencies:
       svelte: '>=3 <5'
     dependencies:

@@ -100,7 +100,18 @@ export const myPreset: Config = {
 		fontFamily: {
 			sans: ['GG Sans', 'Inter', ...defaultTheme.fontFamily.sans],
 			serif: ['ui-serif', 'Georgia'],
-			mono: ['ui-monospace', 'SFMono-Regular']
+			mono: [
+				'Dank Mono',
+				'Operator Mono',
+				'Inconsolata',
+				'Fira Mono',
+				'ui-monospace',
+				'SF Mono',
+				'Monaco',
+				'Droid Sans Mono',
+				'Source Code Pro',
+				'monospace'
+			]
 		},
 
 		extend: {}
