@@ -1,9 +1,10 @@
 <script lang="ts">
-	import { images } from './imageData.js';
+	/* import { images } from './imageData.js'; */
 	import Slide from './Slide.svelte';
 	import Thumbnail from './Thumbnail.svelte';
 	import Caption from './Caption.svelte';
 
+	export let images: { id?: number; name?: string; imgurl: string; attribution?: string }[];
 	/* IMAGE TO SHOW */
 	let imageShowingIndex = 0;
 	$: console.log(imageShowingIndex);

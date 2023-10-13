@@ -26,7 +26,7 @@
 	}
 </script>
 
-<div class="flex flex-col">
+<div class="flex w-full flex-col bg-layer-2 shadow-1">
 	<!-- Carousel -->
 	<div class="card grid grid-cols-[auto_1fr_auto] items-center gap-4 p-4">
 		<!-- Button: Left -->

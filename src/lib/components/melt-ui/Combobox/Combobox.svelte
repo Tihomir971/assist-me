@@ -39,18 +39,18 @@
 		: options;
 </script>
 
-<div class="flex w-full flex-col gap-1">
+<div class="wrapper">
 	<!-- svelte-ignore a11y-label-has-associated-control - $label contains the 'for' attribute -->
 	<label use:melt={$label} for={name}>
 		<span>{labelText}</span>
 	</label>
 	<div class="relative">
 		<input use:melt={$input} type="text" {placeholder} class="w-full" />
-		<div class="absolute right-2 top-1/2 z-10 -translate-y-1/2 text-primary-9">
+		<div class="absolute right-2 top-1/2 z-10 -translate-y-1/2">
 			{#if $open}
-				<ChevronUp class="square-4" />
+				<ChevronUp size="16" class="square-4" />
 			{:else}
-				<ChevronDown class="square-4" />
+				<ChevronDown size="16" class="square-4" />
 			{/if}
 		</div>
 	</div>

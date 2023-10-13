@@ -73,6 +73,30 @@
 html {
 	@apply bg-layer-1 text-text-2 caret-[--link] accent-[--link];
 }
+
+/* width */
+::-webkit-scrollbar {
+	width: 10px;
+	height: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+	@apply border border-solid border-layer-4;
+	background: hsl(var(--layer-1-hsl));
+	border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: hsl(var(--gray-6-hsl));
+	border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background: #555;
+}
 html,
 body {
 	@apply h-screen overflow-hidden;
@@ -249,6 +273,12 @@ table tbody td {
 	}
 }
 
-label {
-	@apply text-xs font-bold uppercase;
+button:is([type='button'], [type='reset'], [type='submit']) {
+	@apply flex max-w-fit items-center gap-1 rounded-1 bg-primary-5 px-4 pb-2 pt-2.5 text-center align-bottom font-medium text-text-1 shadow-2 transition duration-150 ease-in-out hover:bg-primary-6 hover:shadow-3 focus:bg-primary-6 focus:shadow-3 focus:outline-none focus:ring-0 active:bg-primary-7 active:shadow-3 disabled:opacity-70;
+}
+
+.wrapper {
+	label {
+		@apply text-xs font-bold uppercase;
+	}
 }

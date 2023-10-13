@@ -20,25 +20,29 @@
 </script>
 
 <div class="card m-8 w-[1000px] overflow-auto">
-	<header>
+	<header class="flex justify-between">
 		<h3 class="title">Edit product</h3>
-		<div class="description">Detaile</div>
+		<button type="submit">Save</button>
 	</header>
 	<div class="space-y-4 p-4">
 		{previousPage}
 		{#if product}
-			<div class="grid grid-cols-2 gap-2">
+			<div class="wrapper">
+				<label for="name">Name</label>
+				<input id="name" name="name" type="text" class="w-full" bind:value={product.name} />
+			</div>
+			<div class="grid grid-cols-2 gap-4">
 				<div>
 					<section class="grid grid-cols-2 gap-2">
-						<div>
+						<div class="wrapper">
 							<label for="id">ID</label>
 							<input id="id" name="id" type="text" class="w-full" disabled value={product.id} />
 						</div>
-						<div>
+						<div class="wrapper">
 							<label for="sku">SKU</label>
 							<input id="sku" name="sku" type="text" class="w-full" bind:value={product.sku} />
 						</div>
-						<div>
+						<div class="wrapper">
 							<label for="barcode">Barcode</label>
 							<input
 								id="barcode"
@@ -48,7 +52,7 @@
 								bind:value={product.barcode}
 							/>
 						</div>
-						<div>
+						<div class="wrapper">
 							<label for="c_uom_id">UOM</label>
 							<input
 								id="c_uom_id"
@@ -58,7 +62,7 @@
 								bind:value={product.c_uom_id}
 							/>
 						</div>
-						<div>
+						<div class="wrapper">
 							<label for="brand">Brand</label>
 							<input
 								id="brand"
@@ -68,90 +72,82 @@
 								bind:value={product.brand}
 							/>
 						</div>
-						<div>
+						<div class="wrapper">
 							<label for="mpn">MPN</label>
 							<input id="mpn" name="mpn" type="text" class="w-full" bind:value={product.mpn} />
 						</div>
+						<div class="wrapper">
+							<label for="created">Created</label>
+							<input
+								id="created"
+								name="created"
+								type="text"
+								class="w-full"
+								disabled
+								value={DateTimeFormat(product.created)}
+							/>
+						</div>
+						<div class="wrapper">
+							<label for="updated">Updated</label>
+							<input
+								id="updated"
+								name="updated"
+								type="text"
+								class="w-full"
+								disabled
+								value={DateTimeFormat(product.updated)}
+							/>
+						</div>
+						<div>
+							{#if categories}
+								<Combobox
+									labelText="Product category"
+									placeholder="Choose category"
+									options={categories}
+									bind:value={product.m_product_category_id}
+								></Combobox>
+							{/if}
+							<!-- 	<label for="m_product_category_id">Product category</label>
+							<input
+							id="m_product_category_id"
+							name="m_product_category_id"
+							type="text"
+							class="w-full"
+							bind:value={product.m_product_category_id}
+							/> -->
+						</div>
+						<div class="wrapper">
+							<label for="condition">Condition</label>
+							<input
+								id="condition"
+								name="condition"
+								type="text"
+								class="w-full"
+								bind:value={product.condition}
+							/>
+						</div>
 					</section>
+					<div class="grid grid-cols-3 gap-2 p-2">
+						<!-- <input hidden name="isselfservice" bind:value={product.isselfservice} /> -->
+						<Checkbox
+							name="isselfservice"
+							labelText="Is self-service?"
+							bind:checked={product.isselfservice}
+							value
+						></Checkbox>
+						<Checkbox
+							name="discontinued"
+							labelText="Is Discontinued?"
+							bind:checked={product.discontinued}
+						></Checkbox>
+						<Checkbox name="isactive" labelText="Is active?" bind:checked={product.isactive} value
+						></Checkbox>
+					</div>
 				</div>
 				{#await streamed.images then images}
-					<GalleryNew></GalleryNew>
-					<!-- <Gallery images={images.imageURLs} /> -->
+					<Gallery images={images.imageURLs} />
 				{/await}
 			</div>
-
-			<div>
-				<label for="name">Name</label>
-				<input id="name" name="name" type="text" class="w-full" bind:value={product.name} />
-			</div>
-			<div class="grid grid-cols-3 gap-2"></div>
-			<div>
-				{#if categories}
-					<Combobox
-						labelText="Product category"
-						placeholder="Choose category"
-						options={categories}
-						bind:value={product.m_product_category_id}
-					></Combobox>
-				{/if}
-				<!-- 	<label for="m_product_category_id">Product category</label>
-					<input
-					id="m_product_category_id"
-					name="m_product_category_id"
-						type="text"
-						class="w-full"
-						bind:value={product.m_product_category_id}
-					/> -->
-			</div>
-			<div>
-				<label for="condition">Condition</label>
-				<input
-					id="condition"
-					name="condition"
-					type="text"
-					class="w-full"
-					bind:value={product.condition}
-				/>
-			</div>
-			<div>
-				<label for="created">Created</label>
-				<input
-					id="created"
-					name="created"
-					type="text"
-					class="w-full"
-					value={DateTimeFormat(product.created)}
-				/>
-			</div>
-			<div>
-				<label for="updated">Updated</label>
-				<input
-					id="updated"
-					name="updated"
-					type="text"
-					class="w-full"
-					value={DateTimeFormat(product.updated)}
-				/>
-			</div>
-			<div class="grid grid-cols-3 gap-2">
-				<!-- <input hidden name="isselfservice" bind:value={product.isselfservice} /> -->
-				<Checkbox
-					name="isselfservice"
-					labelText="Is self-service?"
-					bind:checked={product.isselfservice}
-					value
-				></Checkbox>
-				<Checkbox
-					name="discontinued"
-					labelText="Is Discontinued?"
-					bind:checked={product.discontinued}
-				></Checkbox>
-				<Checkbox name="isactive" labelText="Is active?" bind:checked={product.isactive} value
-				></Checkbox>
-			</div>
-			<!-- <Select name="Category" bind:options={categories}></Select> -->
-			<!-- <input hidden name="m_product_category_id" bind:value={product.m_product_category_id} /> -->
-			<pre>{JSON.stringify(data.product, null, 2)}</pre>
 		{/if}
 	</div>
 </div>

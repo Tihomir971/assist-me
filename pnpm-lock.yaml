@@ -24,10 +24,10 @@ dependencies:
 devDependencies:
   '@melt-ui/pp':
     specifier: ^0.1.2
-    version: 0.1.2(@melt-ui/svelte@0.54.1)(svelte@4.2.1)
+    version: 0.1.2(@melt-ui/svelte@0.55.0)(svelte@4.2.1)
   '@melt-ui/svelte':
-    specifier: ^0.54.1
-    version: 0.54.1(svelte@4.2.1)
+    specifier: ^0.55.0
+    version: 0.55.0(svelte@4.2.1)
   '@sveltejs/adapter-auto':
     specifier: ^2.1.0
     version: 2.1.0(@sveltejs/kit@1.25.2)
@@ -408,26 +408,26 @@ packages:
       - supports-color
     dev: true
 
-  /@melt-ui/pp@0.1.2(@melt-ui/svelte@0.54.1)(svelte@4.2.1):
+  /@melt-ui/pp@0.1.2(@melt-ui/svelte@0.55.0)(svelte@4.2.1):
     resolution: {integrity: sha512-GZeqp7UWLNZUC2dJpREnZrWMR88vy27WO7C3cIBz4KW3/CFD19FjNkd3VbSRfcRryrMkdnEs9nu2VUa8/0u58w==}
     engines: {pnpm: '>=8.6.3'}
     peerDependencies:
       '@melt-ui/svelte': '>= 0.29.0'
       svelte: ^3.55.0 || ^4.0.0
     dependencies:
-      '@melt-ui/svelte': 0.54.1(svelte@4.2.1)
+      '@melt-ui/svelte': 0.55.0(svelte@4.2.1)
       svelte: 4.2.1
     dev: true
 
-  /@melt-ui/svelte@0.54.1(svelte@4.2.1):
-    resolution: {integrity: sha512-sUAum/TSx0+DZYV5FNRTGRl38nv157PIbE2dy4IwXp6wJH97CWi7DuwaI4rrao9N2UKAUMIT0wmUVLeEULDCZw==}
+  /@melt-ui/svelte@0.55.0(svelte@4.2.1):
+    resolution: {integrity: sha512-fNv47y2Uxx3dtBoihTbBAaQxKy4j8xVGdat8n5I01JMkwTv1GS1qnzOVNDLncDeJCo8aY6/Qoy6wRelCnbxyGg==}
     peerDependencies:
       svelte: '>=3 <5'
     dependencies:
       '@floating-ui/core': 1.5.0
       '@floating-ui/dom': 1.5.3
       dequal: 2.0.3
-      focus-trap: 7.5.3
+      focus-trap: 7.5.4
       nanoid: 4.0.2
       svelte: 4.2.1
     dev: true
@@ -503,8 +503,8 @@ packages:
       whatwg-url: 5.0.0
     dev: false
 
-  /@supabase/postgrest-js@1.8.4:
-    resolution: {integrity: sha512-ELjpvhb04wILUiJz9zIsTSwaz9LQNlX+Ig5/LgXQ7k68qQI6NqHVn+ISRNt53DngUIyOnLHjeqqIRHBZ7zpgGA==}
+  /@supabase/postgrest-js@1.8.5:
+    resolution: {integrity: sha512-XvoqN5e5Z4TsQOYWLQYLW0HIlZtFSzwAcwiuToaSBSTpLOGCg4NaZ7au5GfBzCQJZdZPY5vk5FvwthfDsQK/Jw==}
     dependencies:
       '@supabase/node-fetch': 2.6.14
     dev: false
@@ -532,7 +532,7 @@ packages:
       '@supabase/functions-js': 2.1.5
       '@supabase/gotrue-js': 2.55.0
       '@supabase/node-fetch': 2.6.14
-      '@supabase/postgrest-js': 1.8.4
+      '@supabase/postgrest-js': 1.8.5
       '@supabase/realtime-js': 2.8.0
       '@supabase/storage-js': 2.5.4
     transitivePeerDependencies:
@@ -576,7 +576,7 @@ packages:
       devalue: 4.3.2
       esm-env: 1.0.0
       kleur: 4.1.5
-      magic-string: 0.30.4
+      magic-string: 0.30.5
       mime: 3.0.0
       sade: 1.8.1
       set-cookie-parser: 2.6.0
@@ -614,7 +614,7 @@ packages:
       debug: 4.3.4
       deepmerge: 4.3.1
       kleur: 4.1.5
-      magic-string: 0.30.4
+      magic-string: 0.30.5
       svelte: 4.2.1
       svelte-hmr: 0.15.3(svelte@4.2.1)
       vite: 4.4.11
@@ -632,8 +632,8 @@ packages:
     resolution: {integrity: sha512-RbSSoHliUbnXj3ny0CNFOoxrIDV6SUGyStHsvDqosw6CkdPV8TtWGlfecuK4ToyMEAql6pzNxgCFKanovUzlgQ==}
     dev: true
 
-  /@types/node@20.8.4:
-    resolution: {integrity: sha512-ZVPnqU58giiCjSxjVUESDtdPk4QR5WQhhINbc9UBrKLU68MX5BF6kbQzTrkwbolyr0X8ChBpXfavr5mZFKZQ5A==}
+  /@types/node@20.8.5:
+    resolution: {integrity: sha512-SPlobFgbidfIeOYlzXiEjSYeIJiOCthv+9tSQVpvk4PAdIIc+2SmjNVzWXk9t0Y7dl73Zdf+OgXKHX9XtkqUpw==}
     dependencies:
       undici-types: 5.25.3
     dev: false
@@ -653,7 +653,7 @@ packages:
   /@types/websocket@1.0.7:
     resolution: {integrity: sha512-62Omr8U0PO+hgjLCpPnMsmjh2/FRwIGOktZHyYAUzooEJotwkXHMp7vCacdYi8haxBNOiw9bc2HIHI+b/MPNjA==}
     dependencies:
-      '@types/node': 20.8.4
+      '@types/node': 20.8.5
     dev: false
 
   /@typescript-eslint/eslint-plugin@6.7.5(@typescript-eslint/parser@6.7.5)(eslint@8.51.0)(typescript@5.2.2):
@@ -910,7 +910,7 @@ packages:
     dependencies:
       browserslist: 4.22.1
       caniuse-lite: 1.0.30001547
-      fraction.js: 4.3.6
+      fraction.js: 4.3.7
       normalize-range: 0.1.2
       picocolors: 1.0.0
       postcss: 8.4.31
@@ -957,7 +957,7 @@ packages:
     hasBin: true
     dependencies:
       caniuse-lite: 1.0.30001547
-      electron-to-chromium: 1.4.550
+      electron-to-chromium: 1.4.552
       node-releases: 2.0.13
       update-browserslist-db: 1.0.13(browserslist@4.22.1)
     dev: true
@@ -1165,8 +1165,8 @@ packages:
       esutils: 2.0.3
     dev: true
 
-  /electron-to-chromium@1.4.550:
-    resolution: {integrity: sha512-LfcsAzGj18xBYFM5WetwNQdqA03iLDozfCo0SWpu5G9zA5H1G/2GOiHOVnQdOrqaZ8vI8IiSgS3JMUrq930zsw==}
+  /electron-to-chromium@1.4.552:
+    resolution: {integrity: sha512-qMPzA5TEuOAbLFmbpNvO4qkBRe2B5dAxl6H4KxqRNy9cvBeHT2EyzecX0bumBfRhHN8cQJrx6NPd0AAoCCPKQw==}
     dev: true
 
   /emoji-regex@8.0.0:
@@ -1456,14 +1456,14 @@ packages:
     resolution: {integrity: sha512-36yxDn5H7OFZQla0/jFJmbIKTdZAQHngCedGxiMmpNfEZM0sdEeT+WczLQrjK6D7o2aiyLYDnkw0R3JK0Qv1RQ==}
     dev: true
 
-  /focus-trap@7.5.3:
-    resolution: {integrity: sha512-7UsT/eSJcTPF0aZp73u7hBRTABz26knRRTJfoTGFCQD5mUImLIIOwWWCrtoQdmWa7dykBi6H+Cp5i3S/kvsMeA==}
+  /focus-trap@7.5.4:
+    resolution: {integrity: sha512-N7kHdlgsO/v+iD/dMoJKtsSqs5Dz/dXZVebRgJw23LDk+jMi/974zyiOYDziY2JPp8xivq9BmUGwIJMiuSBi7w==}
     dependencies:
       tabbable: 6.2.0
     dev: true
 
-  /fraction.js@4.3.6:
-    resolution: {integrity: sha512-n2aZ9tNfYDwaHhvFTkhFErqOMIb8uyzSQ+vGJBjZyanAKZVbGUQ1sngfk9FdkBw7G26O7AgNjLcecLffD1c7eg==}
+  /fraction.js@4.3.7:
+    resolution: {integrity: sha512-ZsDfxO51wGAXREY55a7la9LScWpwv9RxIrYABrlvOFBlH/ShPnrtsXeuUIfXKKOVicNxQ+o8JTbJvjS4M89yew==}
     dev: true
 
   /fs-minipass@2.1.0:
@@ -1773,8 +1773,8 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.15
     dev: true
 
-  /magic-string@0.30.4:
-    resolution: {integrity: sha512-Q/TKtsC5BPm0kGqgBIF9oXAs/xEf2vRKiIB4wCRQTJOQIByZ1d+NnUOotvJOvNpi5RNIgVOMC3pOuaP1ZTDlVg==}
+  /magic-string@0.30.5:
+    resolution: {integrity: sha512-7xlpfBaQaP/T6Vh8MO/EqXSW5En6INHEvEXQiuff7Gku0PWjU3uf6w/j9o7O+SpB5fOAkrI5HeoNgwjEO0pFsA==}
     engines: {node: '>=12'}
     dependencies:
       '@jridgewell/sourcemap-codec': 1.4.15
@@ -2606,7 +2606,7 @@ packages:
       estree-walker: 3.0.3
       is-reference: 3.0.2
       locate-character: 3.0.0
-      magic-string: 0.30.4
+      magic-string: 0.30.5
       periscopic: 3.1.0
 
   /tabbable@6.2.0:
