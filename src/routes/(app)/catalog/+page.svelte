@@ -2,7 +2,8 @@
 	import type { PageData } from './$types';
 	import { writable } from 'svelte/store';
 
-	import Actions from './actions-product.svelte';
+	/* import Actions from './actions-product.doc'; */
+	import Actions2 from './actions-product2.svelte';
 	import NumberFormat from './NumberFormat.svelte';
 	import TextRight from './TextRight.svelte';
 	import PageHeader from './PageHeader.svelte';
@@ -19,6 +20,7 @@
 		addSortBy,
 		addTableFilter
 	} from 'svelte-headless-table/plugins';
+	import { numberFormat } from '$lib/scripts/format';
 	const products = writable(data.products);
 	$: $products = data.products;
 
@@ -72,7 +74,11 @@
 			}
 		}),
 		table.column({ header: 'Barcode', accessor: 'barcode' }),
-		table.column({ header: 'MPN', accessor: 'mpn' }),
+		table.column({
+			header: 'MPN',
+			accessor: 'mpn',
+			cell: ({ value }) => `${value ?? ''}`
+		}),
 		table.column({ header: 'Name', accessor: 'name' }),
 
 		table.column({
@@ -87,6 +93,7 @@
 				})
 		}),
 		table.column({
+			id: 'purchase',
 			header: createRender(TextRight, { text: 'Purch.' }),
 			accessor: 'pricePurchase',
 			cell: ({ value }) =>
@@ -95,6 +102,18 @@
 					locales: 'sr-Latn',
 					style: 'decimal',
 					fractionDigits: 2
+				})
+		}),
+		table.column({
+			id: 'ruc',
+			accessor: (item) => item,
+			header: 'RuC',
+			cell: ({ value }) =>
+				createRender(NumberFormat, {
+					value: value.priceRetail / value.pricePurchase - 1,
+					locales: 'sr-Latn',
+					style: 'percent',
+					fractionDigits: 1
 				})
 		}),
 		table.column({
@@ -133,7 +152,7 @@
 		table.column({
 			header: '',
 			accessor: ({ id }) => id,
-			cell: ({ value }) => createRender(Actions, { id: value.toString() }),
+			cell: ({ value }) => createRender(Actions2, { id: value.toString() }),
 			plugins: {
 				sort: { disable: true }
 			}
@@ -173,7 +192,7 @@
 					<Subscribe rowAttrs={row.attrs()} let:rowAttrs>
 						<Table.Row {...rowAttrs} data-state={$selectedDataIds[row.id] && 'selected'}>
 							{#each row.cells as cell (cell.id)}
-								<Subscribe attrs={cell.attrs()} let:attrs>
+								<Subscribe attrs={cell.attrs()} let:attrs props={cell.props()} let:props>
 									<Table.Cell {...attrs}>
 										<Render of={cell.render()} />
 									</Table.Cell>

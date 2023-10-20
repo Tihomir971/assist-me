@@ -1,5 +1,8 @@
-import { error } from '@sveltejs/kit';
+import { error, fail } from '@sveltejs/kit';
+import type { Actions } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
+import type { Tables } from '$lib/types/database.types';
+import { getBoolean, getNumber, getString } from '$lib/scripts/getForm';
 
 export const load = (async ({ params, locals: { supabase, getSession } }) => {
 	const session = await getSession();
@@ -17,7 +20,6 @@ export const load = (async ({ params, locals: { supabase, getSession } }) => {
 			.from('m_product_category')
 			.select('value:id,label:name')
 			.order('name');
-
 		return data;
 	};
 	const getImages = async (id: number) => {
@@ -60,3 +62,40 @@ export const load = (async ({ params, locals: { supabase, getSession } }) => {
 		}
 	};
 }) satisfies PageServerLoad;
+
+export const actions = {
+	setProduct: async ({ request, locals: { supabase, getSession } }) => {
+		const session = await getSession();
+		if (!session) {
+			throw error(401, { message: 'Unauthorized' });
+		}
+		const product: Partial<Tables<'m_product'>> = {};
+		/* let temporary: FormDataEntryValue | null; */
+		const formData = await request.formData();
+
+		const productId = getNumber(formData, 'id');
+		product.sku = getString(formData, 'sku');
+		product.name = getString(formData, 'name') ?? undefined;
+		product.barcode = getString(formData, 'barcode');
+		product.c_uom_id = getNumber(formData, 'c_uom_id') ?? undefined;
+		product.brand = getString(formData, 'brand');
+		product.mpn = getString(formData, 'mpn') ?? undefined;
+		product.m_product_category_id = getNumber(formData, 'm_product_category_id');
+		product.condition = getString(formData, 'condition');
+		product.isselfservice = getBoolean(formData, 'isselfservice');
+		product.discontinued = getBoolean(formData, 'discontinued');
+		product.isactive = getBoolean(formData, 'isactive');
+
+		if (productId) {
+			const { error: createPostError } = await supabase
+				.from('m_product')
+				.update(product)
+				.eq('id', productId);
+
+			if (createPostError) {
+				return fail(500, { supabaseErrorMessage: createPostError.message });
+			}
+		}
+		return;
+	}
+} satisfies Actions;

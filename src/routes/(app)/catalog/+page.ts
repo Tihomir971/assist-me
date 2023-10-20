@@ -56,6 +56,7 @@ export const load = (async ({ parent, depends, url }) => {
 
 	const products: Product[] = [];
 	data?.forEach((product) => {
+		console.log('data.mpn', product?.mpn);
 		// Assign quantity  for product if exist
 		let qtyonhand = 0;
 		if (Array.isArray(product.m_storageonhand) && product.m_storageonhand?.length !== 0) {

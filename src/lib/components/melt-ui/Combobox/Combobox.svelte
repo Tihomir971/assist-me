@@ -8,13 +8,7 @@
 	export let placeholder: string | undefined = undefined;
 	export let name: string | undefined = undefined;
 	export let value: number | null;
-	/* export let value: ComboboxOption<number> | undefined; */
 	export let options: ComboboxOption<number>[];
-	/* export let options; */
-	/* 	const onSelectedChange: CreateComboboxProps<number>['onSelectedChange'] = ({ curr, next }) => {
-		value = next?.value ?? null;
-		return next;
-	}; */
 	const {
 		elements: { menu, input, option, label },
 		states: { open, inputValue, touchedInput, selected },
@@ -23,18 +17,19 @@
 		forceVisible: true,
 		/* onSelectedChange, */
 		defaultSelected: options.find((obj) => obj.value === value)
+		/* defaultSelected: options.find((obj) => obj.value === value) */
 	});
 
 	$: if (!$open) {
 		$inputValue = $selected?.label ?? '';
 		value = $selected?.value ?? null;
-		/* console.log('$inputValue', $inputValue); */
 	}
 
 	$: filteredOptions = $touchedInput
 		? options.filter(({ label, value }) => {
 				const normalizedInput = $inputValue.toLowerCase();
-				return label?.toLowerCase().includes(normalizedInput);
+				return label?.toLowerCase().includes(normalizedInput) /*  ||
+          value.toLowerCase().includes(normalizedInput) */;
 		  })
 		: options;
 </script>
@@ -45,6 +40,7 @@
 		<span>{labelText}</span>
 	</label>
 	<div class="relative">
+		<input hidden {name} type="text" value={$selected?.value} />
 		<input use:melt={$input} type="text" {placeholder} class="w-full" />
 		<div class="absolute right-2 top-1/2 z-10 -translate-y-1/2">
 			{#if $open}

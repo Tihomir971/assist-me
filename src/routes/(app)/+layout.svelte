@@ -9,7 +9,7 @@
 </script>
 
 <Toaster />
-<div id="main-layout" class=" grid h-full grid-cols-[auto_1fr]">
+<div id="main-layout" class="grid h-full grid-cols-[auto_1fr] border-r border-layer-3 bg-layer-2">
 	<div>
 		<Aside />
 	</div>

@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { Input } from '$lib';
-	import Button from '$lib/components/Button/Button.svelte';
 	import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '$lib/components/card';
 	import CardDescription from '$lib/components/card/card-description.svelte';
 	import type { ActionData } from './$types';
@@ -60,7 +59,7 @@
 						</div>
 					</div>
 
-					<Button type="submit" disabled={false}>Log in</Button>
+					<button class="btn" type="submit" disabled={false}>Log in</button>
 				</div>
 			</form>
 		</CardContent>

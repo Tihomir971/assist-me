@@ -2,18 +2,18 @@
 	import ThemeToggle from '$lib/components/ThemeToggle/ThemeToggle.svelte';
 	import { createAvatar, melt } from '@melt-ui/svelte';
 	import { LayoutDashboard, Package, Tag } from 'lucide-svelte';
-	const {
+	/* 	const {
 		elements: { image, fallback }
 	} = createAvatar({
 		src: 'https://avatars.githubusercontent.com/u/1162160?v=4'
-	});
+	}); */
 </script>
 
-<aside class="bg-gray-13 flex h-full w-16 flex-col justify-between">
+<aside class="flex h-full w-16 flex-col justify-between">
 	<div id="topAside">
 		<div
 			id="logo"
-			class="hover:bg-layer-2 flex aspect-square w-full cursor-pointer items-center justify-center text-text-2"
+			class="flex aspect-square w-full cursor-pointer items-center justify-center text-text-2 hover:bg-layer-2"
 		>
 			<img
 				class="h-8 w-8"
@@ -24,14 +24,14 @@
 		<div id="navAside">
 			<a
 				href="/dashboard"
-				class="hover:bg-layer-2 flex aspect-square w-full cursor-pointer flex-col items-center justify-center space-y-1 text-xs !text-current"
+				class="!text-current flex aspect-square w-full cursor-pointer flex-col items-center justify-center space-y-1 text-xs hover:bg-layer-2"
 			>
 				<LayoutDashboard />
 				<span>Dashboard</span>
 			</a>
 			<a
 				href="/catalog"
-				class="hover:layer-2 flex aspect-square w-full cursor-pointer flex-col items-center justify-center space-y-1 text-xs !text-current"
+				class="hover:layer-2 !text-current flex aspect-square w-full cursor-pointer flex-col items-center justify-center space-y-1 text-xs"
 			>
 				<Tag />
 				<span>Catalog</span>
@@ -39,13 +39,15 @@
 		</div>
 	</div>
 	<div id="bottomAside">
-		<ThemeToggle></ThemeToggle>
-		<div class="hover:bg-layer-2 flex items-center justify-center">
+		<div class="flex aspect-square w-full cursor-pointer items-center justify-center">
+			<ThemeToggle></ThemeToggle>
+		</div>
+		<div class="flex items-center justify-center hover:bg-layer-2">
 			<!-- Profile dropdown -->
-			<div class="flex aspect-square w-full cursor-pointer items-center justify-center">
+			<!-- <div class="flex aspect-square w-full cursor-pointer items-center justify-center">
 				<img use:melt={$image} alt="Avatar" class="h-10 w-10 rounded-[inherit]" />
 				<span use:melt={$fallback} class="text-magnum-700 text-xl font-medium">RH</span>
-			</div>
+			</div> -->
 		</div>
 	</div>
 </aside>

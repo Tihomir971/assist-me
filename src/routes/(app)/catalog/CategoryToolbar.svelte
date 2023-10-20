@@ -69,6 +69,8 @@
 				targetObject[property] = category[property];
 			}
 		}
+		/* 	console.log('targetObject', targetObject); */
+
 		const { error } = await $page.data.supabase
 			.from('m_product_category')
 			.update(targetObject)
@@ -93,9 +95,34 @@
 					color: 'bg-purple-5'
 				}
 			});
+			invalidate('catalog:categories');
 		}
 
 		return;
+	};
+	const delCategory = async () => {
+		const { error } = await $page.data.supabase
+			.from('m_product_category')
+			.delete()
+			.eq('id', activeId);
+		if (error) {
+			addToast({
+				data: {
+					title: 'Error',
+					description: 'Error Category deleting',
+					color: 'bg-purple-5'
+				}
+			});
+		} else {
+			addToast({
+				data: {
+					title: 'Success',
+					description: 'Category deleted!',
+					color: 'bg-purple-5'
+				}
+			});
+			invalidate('catalog:categories');
+		}
 	};
 </script>
 
@@ -104,13 +131,7 @@
 	<button
 		class="icon h-full"
 		on:click={() => {
-			addToast({
-				data: {
-					title: 'Success',
-					description: 'Category updated!',
-					color: 'bg-purple-5'
-				}
-			});
+			delCategory();
 		}}><Trash2 /></button
 	>
 	<button use:melt={$trigger} class="icon h-full" disabled={activeId === undefined}
@@ -161,27 +182,35 @@
 				<div class="flex flex-col space-y-2">
 					<!-- <form method="POST" action="?/updateProduct"> -->
 					<section class="grid grid-cols-2 gap-2">
-						<div>
+						<div class="wrapper">
 							<label for="id">ID</label>
 							<input id="id" name="id" type="text" class="w-full" disabled value={category.id} />
 						</div>
-						<div>
+						<div class="wrapper">
 							<label for="name">Name</label>
-							<input id="name" name="name" type="text" class="w-full" bind:value={category.name} />
+							<input
+								id="name"
+								name="name"
+								type="text"
+								class="w-full"
+								bind:value={category.name}
+								autocomplete="off"
+							/>
 						</div>
 					</section>
 					<section>
-						<div>
+						<div class="wrapper">
 							<label for="sku">Description</label>
 							<textarea
 								id="description"
 								name="description"
 								class="w-full"
+								rows="3"
 								bind:value={category.description}
 							/>
 						</div>
 
-						<div>
+						<div class="wrapper">
 							<label for="created">Created</label>
 							<input
 								id="created"
@@ -192,7 +221,7 @@
 								value={DateTimeFormat(category.created)}
 							/>
 						</div>
-						<div>
+						<div class="wrapper">
 							<label for="updated">Updated</label>
 							<input
 								id="updated"

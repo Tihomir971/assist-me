@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { ChevronLeftCircle, ChevronRightCircle } from 'lucide-svelte';
+	import Thumbnails from './Thumbnails.svelte';
 
 	let elemCarousel: HTMLDivElement;
 
@@ -50,11 +51,5 @@
 		</button>
 	</div>
 	<!-- Thumbnails -->
-	<div class="card grid grid-cols-6 gap-4 p-4">
-		{#each images as image, i}
-			<button type="button" on:click={() => carouselThumbnail(i)}>
-				<img class="rounded-container-token" src={image} alt={image} loading="lazy" />
-			</button>
-		{/each}
-	</div>
+	<Thumbnails {images} on:select={(e) => carouselThumbnail(e.detail.i)}></Thumbnails>
 </div>

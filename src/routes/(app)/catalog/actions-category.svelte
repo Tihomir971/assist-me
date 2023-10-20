@@ -146,18 +146,25 @@
 				>
 					<X size="20" />
 				</button>
-				<h3 use:melt={$title}>Edit product</h3>
+				<h3 use:melt={$title}>Edit category</h3>
 				<p use:melt={$description} class="text-zinc-600 mb-5 mt-2 leading-normal">Edit category.</p>
 				<div class="flex flex-col space-y-2">
 					<!-- <form method="POST" action="?/updateProduct"> -->
 					<section class="grid grid-cols-2 gap-2">
-						<div>
+						<div class="wrapper">
 							<label for="id">ID</label>
 							<input id="id" name="id" type="text" class="w-full" disabled value={category.id} />
 						</div>
-						<div>
-							<label for="name">Name</label>
-							<input id="name" name="name" type="text" class="w-full" bind:value={category.name} />
+						<div class="wrapper">
+							<label for="name">Name2</label>
+							<input
+								id="name"
+								name="name"
+								type="text"
+								class="w-full"
+								autocomplete="off"
+								bind:value={category.name}
+							/>
 						</div>
 					</section>
 					<section>
@@ -219,7 +226,7 @@
 							></Combobox>
 						{/if} -->
 					</section>
-					<Button type="button" on:click={updateCategory}>Save</Button>
+					<button class="btn" type="button" on:click={updateCategory}>Save</button>
 					<!-- </form> -->
 				</div>
 			</div>

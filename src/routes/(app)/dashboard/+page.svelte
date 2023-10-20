@@ -1,7 +1,6 @@
 <script lang="ts">
 	//	import type { PageData } from './$types';
 
-	import Button from '$lib/components/Button/Button.svelte';
 	import { Accessibility } from 'lucide-svelte';
 
 	//	export let data: PageData;
@@ -12,7 +11,7 @@
 	<a href="/">Link</a>
 	<input type="checkbox" />
 	<form method="POST" action="/auth?/signout">
-		<button type="submit">Log out</button>
+		<button class="btn" type="submit">Log out</button>
 	</form>
 
 	<div class="h-12 w-12"></div>
@@ -33,7 +32,7 @@
 		<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
 	</div>
 
-	<Button type="submit"><Accessibility />Help</Button>
-	<Button type="submit">Help</Button>
-	<Button type="submit"><Accessibility /></Button>
+	<button class="btn" type="submit"><Accessibility />Help</button>
+	<button class="btn" type="submit">Help</button>
+	<button class="btn" type="submit"><Accessibility /></button>
 </div>

@@ -98,7 +98,7 @@ export const myPreset: Config = {
 			inner: 'var(--inner-shadow-0)'
 		},
 		fontFamily: {
-			sans: ['GG Sans', 'Inter', ...defaultTheme.fontFamily.sans],
+			sans: ['Inter Variable', 'GG Sans', ...defaultTheme.fontFamily.sans],
 			serif: ['ui-serif', 'Georgia'],
 			mono: [
 				'Dank Mono',

@@ -6,6 +6,7 @@
 
 	export let data: LayoutData;
 	let { categories } = data;
+	$: ({ categories } = data);
 
 	type Context = {
 		categories: Tables<'m_product_category'>[];

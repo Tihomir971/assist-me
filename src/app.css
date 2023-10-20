@@ -8,12 +8,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@font-face {
-	/* Reference name */
-	font-family: 'Inter';
-	/* For multiple files use commas, ex: url(), url(), ... */
-	src: url('/fonts/Inter-VariableFont_slnt,wght.ttf');
-}
+
 @font-face {
 	/* Reference name */
 	font-family: 'GG Sans';
@@ -273,8 +268,14 @@ table tbody td {
 	}
 }
 
-button:is([type='button'], [type='reset'], [type='submit']) {
-	@apply flex max-w-fit items-center gap-1 rounded-1 bg-primary-5 px-4 pb-2 pt-2.5 text-center align-bottom font-medium text-text-1 shadow-2 transition duration-150 ease-in-out hover:bg-primary-6 hover:shadow-3 focus:bg-primary-6 focus:shadow-3 focus:outline-none focus:ring-0 active:bg-primary-7 active:shadow-3 disabled:opacity-70;
+.btn {
+	@apply flex max-w-fit items-center gap-1 rounded-1  px-4 pb-2 pt-2.5 text-center align-bottom font-medium text-text-1 shadow-2 transition duration-150 ease-in-out hover:shadow-3 focus:shadow-3 focus:outline-none focus:ring-0 active:shadow-4 disabled:opacity-70;
+	&[type='submit'] {
+		@apply bg-primary-6 hover:bg-primary-7 focus:bg-primary-7 active:bg-primary-8;
+	}
+	&[type='reset'] {
+		@apply border border-layer-3 bg-layer-2/50 hover:bg-layer-3/80 focus:bg-layer-3 active:bg-layer-3;
+	}
 }
 
 .wrapper {
