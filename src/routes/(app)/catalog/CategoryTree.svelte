@@ -13,6 +13,7 @@
 	import { page } from '$app/stores';
 	import { goto, invalidate } from '$app/navigation';
 	import { FolderSync, Minimize2, Pencil, Plus, Search, Trash2 } from 'lucide-svelte';
+	import { enhance } from '$app/forms';
 	//	export let children: TreeNode[];
 
 	let categories:
@@ -75,7 +76,8 @@
 			}}><Pencil /></button
 		>
 		<button on:click={() => invalidate('catalog:categories')}><FolderSync /></button>
-		<button on:click><Minimize2 /></button>
+
+		<button type="submit"><Minimize2 /></button>
 		<button on:click><Search /></button>
 	</div>
 	<div class="h-full overflow-y-auto">

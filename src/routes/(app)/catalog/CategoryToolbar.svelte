@@ -1,6 +1,15 @@
 <script lang="ts">
 	import { invalidate } from '$app/navigation';
-	import { FolderSync, Minimize2, Pencil, Plus, Search, Trash2, X } from 'lucide-svelte';
+	import {
+		DollarSign,
+		FolderSync,
+		Minimize2,
+		Pencil,
+		Plus,
+		Search,
+		Trash2,
+		X
+	} from 'lucide-svelte';
 	import ActionsCategory from './actions-category.svelte';
 	import { page } from '$app/stores';
 	import type { Tables } from '$lib/types/database.types';
@@ -12,6 +21,8 @@
 	import Button from '$lib/components/Button/Button.svelte';
 	import { Combobox } from '$lib/components/melt-ui';
 	import { addToast } from '$lib/components/melt-ui/Toaster/Toaster.svelte';
+	import { enhance } from '$app/forms';
+	import { PUBLIC_BEARER_TOKEN } from '$env/static/public';
 
 	$: activeId = $page.url.searchParams.get('cat') as unknown as Number;
 
@@ -124,6 +135,67 @@
 			invalidate('catalog:categories');
 		}
 	};
+	async function callExternalApi() {
+		const activeCategoryId = $page.url.searchParams.get('cat');
+		//	const title = 'Market research';
+
+		/* const { data: activeCategory } = await supabase
+			.from('m_product_category')
+			.select('name')
+			.eq('id', Number(activeCategoryId))
+			.maybeSingle(); */
+
+		// Send notifcation
+		/* addToast(title, `Start: ${activeCategory?.name}`, 'brand', 10);
+		await supabase
+			.from('ad_note')
+			.insert([{ textMsg: `Start: ${activeCategory?.name}`, ad_user_id: user.id }]);
+ */
+		//Prepare fetch property
+		const apiUrl = 'http://192.168.1.10:4443/cenoteka';
+		const myHeaders = new Headers({ Authorization: 'Bearer ' + PUBLIC_BEARER_TOKEN });
+		const formData = new FormData();
+		formData.append('categ', activeCategoryId ?? '');
+
+		try {
+			const response = await fetch(apiUrl, {
+				method: 'POST',
+				body: formData,
+				headers: myHeaders
+			});
+			if (!response.ok) {
+				throw new Error(`Network response was not OK: ${response.statusText}`);
+			}
+
+			const data = await response.text();
+
+			// Send notifcation
+			/* addToast(title, `Finish: ${activeCategory?.name}`, 'success');
+			await supabase
+				.from('ad_note')
+				.insert([{ textMsg: `Finish: ${activeCategory?.name}`, ad_user_id: user.id }]); */
+
+			return;
+		} catch (error) {
+			if (error instanceof TypeError && error.message === 'Failed to fetch') {
+				console.error('Failed to fetch:', error.message);
+			} else {
+				console.error('There has been a problem with your fetch operation:', error);
+			}
+		}
+	}
+	async function callApi() {
+		const response = await fetch('/api/cenoteka', {
+			method: 'POST',
+			body: JSON.stringify(activeId),
+			headers: {
+				'content-type': 'application/json'
+			}
+		});
+
+		const total = await response.json();
+		console.log('total', total);
+	}
 </script>
 
 <div class="flex h-full">
@@ -146,6 +218,9 @@
 	>
 	<button class="icon h-full" on:click><Minimize2 /></button>
 	<button class="icon h-full" on:click><Search /></button>
+	<!-- <form method="post" action="/catalog?/callExternalApi" use:enhance> -->
+	<button class="icon h-full" on:click={callApi}><DollarSign /></button>
+	<!-- </form> -->
 </div>
 
 <!-- Edit Category -->
