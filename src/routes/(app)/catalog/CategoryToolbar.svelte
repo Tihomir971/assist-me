@@ -212,14 +212,13 @@
 	<button
 		class="icon h-full"
 		on:click={() => {
-			console.log('click');
 			invalidate('catalog:categories');
 		}}><FolderSync /></button
 	>
 	<button class="icon h-full" on:click><Minimize2 /></button>
 	<button class="icon h-full" on:click><Search /></button>
 	<!-- <form method="post" action="/catalog?/callExternalApi" use:enhance> -->
-	<button class="icon h-full" on:click={callApi}><DollarSign /></button>
+	<button class="icon h-full" on:click={callExternalApi}><DollarSign /></button>
 	<!-- </form> -->
 </div>
 

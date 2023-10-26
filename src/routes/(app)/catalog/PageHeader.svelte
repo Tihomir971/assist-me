@@ -6,7 +6,8 @@
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
 	import { Select, Switch } from '$lib/components/melt-ui';
-
+	import { PUBLIC_BEARER_TOKEN } from '$env/static/public';
+	export let selectedProducts: number[];
 	let checked = true;
 	const options: SelectOption<number>[] = [
 		{ value: 5, label: 'Retail T' },
@@ -53,9 +54,64 @@
 		newUrl?.searchParams?.set('onStock', checked ? 'true' : 'false');
 		goto(newUrl);
 	};
+	async function getPrices() {
+		const apiUrl = 'http://192.168.1.10:4443/cenoteka/prods';
+		const myHeaders = new Headers({ Authorization: 'Bearer ' + PUBLIC_BEARER_TOKEN });
+		const formData = new FormData();
+		formData.append('prods', JSON.stringify(selectedProducts));
+
+		try {
+			const response = await fetch(apiUrl, {
+				method: 'POST',
+				body: formData,
+				headers: myHeaders
+			});
+			if (!response.ok) {
+				throw new Error(`Network response was not OK: ${response.statusText}`);
+			}
+
+			const data = await response.text();
+		} catch (error) {
+			if (error instanceof TypeError && error.message === 'Failed to fetch') {
+				console.error('Failed to fetch:', error.message);
+			} else {
+				console.error('There has been a problem with your fetch operation:', error);
+			}
+		}
+	}
+
+	async function getERP() {
+		const activeCategoryId = $page.url.searchParams.get('cat');
+
+		const apiUrl = 'http://192.168.1.10:4443/bizsoft/assistant/sync/prods';
+		const myHeaders = new Headers({ Authorization: 'Bearer ' + PUBLIC_BEARER_TOKEN });
+		const formData = new FormData();
+		formData.append('prods', JSON.stringify(selectedProducts));
+
+		try {
+			const response = await fetch(apiUrl, {
+				method: 'POST',
+				body: formData,
+				headers: myHeaders
+			});
+			if (!response.ok) {
+				throw new Error(`Network response was not OK: ${response.statusText}`);
+			}
+
+			const data = await response.text();
+		} catch (error) {
+			if (error instanceof TypeError && error.message === 'Failed to fetch') {
+				console.error('Failed to fetch:', error.message);
+			} else {
+				console.error('There has been a problem with your fetch operation:', error);
+			}
+		}
+	}
 </script>
 
 <header class="flex h-full items-center justify-between px-4">
 	<Select {options} defaultSelected={options[0]} on:onSelectedChange={onSelected}></Select>
+	<button class="btn" on:click={getPrices}>Get prices</button>
+	<button class="btn" on:click={getERP}>Get ERP</button>
 	<Switch label="Only on Stock?" bind:checked on:m-click={switchOnStock}></Switch>
 </header>
