@@ -283,3 +283,8 @@ table tbody td {
 		@apply text-xs font-bold uppercase;
 	}
 }
+fieldset {
+	label {
+		@apply text-xs font-bold uppercase;
+	}
+}

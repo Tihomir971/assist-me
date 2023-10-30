@@ -5,8 +5,8 @@
 	import { Gallery } from '$lib';
 	import { Thumbnails } from '$lib/components/Gallery';
 	import { Combobox } from '$lib/components/melt-ui';
+	import { Tabs } from '$lib/components/melt-ui/tabs';
 	import { DateTimeFormat } from '$lib/scripts/format';
-	import { afterUpdate, onMount } from 'svelte';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
@@ -24,8 +24,16 @@
 		previousPage = previousPage + '?' + from?.url.searchParams.toString() || previousPage;
 		localCopy = Object.assign({}, product);
 	});
-</script>
 
+	const triggers = [
+      { id: 'tab-1', title: 'Details' },
+      { id: 'tab-2', title: 'Stock' },
+      { id: 'tab-3', title: 'Settings' },
+    ];
+</script>
+<div class="card container overflow-auto">
+<Tabs >
+</Tabs>
 <form
 	method="POST"
 	action="?/setProduct"
@@ -35,7 +43,6 @@
 		};
 	}}
 >
-	<div class="card container overflow-auto">
 		<header class="flex justify-between">
 			<h3 class="title">Edit product</h3>
 			<div class="flex gap-2">
@@ -194,5 +201,5 @@
 				</div>
 			{/if}
 		</div>
-	</div>
-</form>
+	</form>
+</div>

@@ -170,8 +170,6 @@
 
 <div class="grid max-h-screen grid-rows-[auto_1fr]">
 	<div class="grid h-full grid-rows-[1fr_auto] overflow-auto px-2">
-		{JSON.stringify($selectedDataIds, null, 2)}
-		{strSelectedDataIds}
 		<div class="h-12 w-full border-b border-layer-3 bg-layer-2">
 			<PageHeader selectedProducts={strSelectedDataIds} />
 		</div>

@@ -15,8 +15,7 @@ const config = {
 		adapter: adapter()
 	},
 	vitePlugin: {
-		inspector: {
-		},
+		inspector: {}
 	}
 };
 export default config;

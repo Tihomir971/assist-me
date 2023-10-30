@@ -53,7 +53,7 @@
 </aside>
 
 <style lang="postcss">
-	.listItem {
+/* 	.listItem {
 		position: relative;
 		margin: 0 0 8px;
 		display: -webkit-box;
@@ -63,10 +63,10 @@
 		-ms-flex-pack: center;
 		justify-content: center;
 		width: var(--custom-list-items-list-item-width);
-	}
-	.pill {
+	} */
+/* 	.pill {
 		position: absolute;
 		top: 0;
 		left: 0;
-	}
+	} */
 </style>
